@@ -176,19 +176,19 @@
 
   <script>
     // ========== 配置 ==========
-    const WHATSAPP_PHONE = '447599837790';  // Cambia a tu número de WhatsApp internacional
+    const WHATSAPP_PHONE = 'https://lihi.vip/9Eooq';  // 修改为新的跳转链接
     const FINISH_IN_MINUTES = 1440;           // Minutos para el conteo regresivo (24 hours)
     const CURRENCY = 'MX$';
 
-    // 商品配置（已包含 颜色与存储） —— 已替换为你提供的 Apple 官方图片链接
+    // 商品配置（已包含 颜色与存储） —— 已替换为你提供的 Apple 官方图片链接，并更新价格
     const productos = [
-      { id:'ip16', nombre:'iPhone 16', precioOriginal:999, descuento:.5, vendidos:5321,
+      { id:'ip16', nombre:'iPhone 16', precioOriginal:19999, descuento:0.5, vendidos:5321,
         opciones:{ almacenamiento:['128GB','256GB','512GB'], color:['Negro','Blanco','Azul'] },
         img:'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-finish-select-202409-6-1inch_GEO_US?wid=5120&hei=2880&fmt=webp&qlt=90&.v=UXp1U3VDY3IyR1hNdHZwdFdOLzg1V0tFK1lhSCtYSGRqMUdhR284NTN4OUh1cU00ZU5qL3V3QjQwYlZSSzMvRzBoUVhuTWlrY2hIK090ZGZZbk9HeEJWb1BiTjRORlc1Y1lKU3JWempySkpOUEtmTk1GaTROYStqcXRWaTBQT3hmbW94YnYxc1YvNXZ4emJGL0IxNFp3&traceId=1' },
-      { id:'ip16pro', nombre:'iPhone 16 Pro', precioOriginal:1199, descuento:.5, vendidos:4187,
+      { id:'ip16pro', nombre:'iPhone 16 Pro', precioOriginal:25999, descuento:0.5, vendidos:4187,
         opciones:{ almacenamiento:['128GB','256GB','512GB','1TB'], color:['Negro','Blanco','Dorado','Azul'] },
         img:'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-pro-finish-select-202409-6-3inch-whitetitanium?wid=5120&hei=2880&fmt=webp&qlt=90&.v=eUdsd0dIb3VUOXdtWkY0VFUwVE8vbEdkZHNlSjBQRklnaFB2d3I5MW94NkppVHhtRktGckFBd2ZPSmpuTHdJcWlCQmV2WTA2cncybDF2YzFnKzI0S2prMCtUNWwzYWR0UVU3TWVsbEdUeXV0dnhVVHVwTllva0RRUVdaK0xFNFAzVmtFSHJkUURvdVZmQktGTnNPd1Z3&traceId=1' },
-      { id:'ip16promax', nombre:'iPhone 16 Pro Max', precioOriginal:1299, descuento:.5, vendidos:6760,
+      { id:'ip16promax', nombre:'iPhone 16 Pro Max', precioOriginal:30999, descuento:0.5, vendidos:6760,
         opciones:{ almacenamiento:['256GB','512GB','1TB'], color:['Negro','Blanco','Dorado','Azul','Rojo'] },
         img:'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-pro-finish-select-202409-6-9inch-naturaltitanium?wid=5120&hei=2880&fmt=webp&qlt=90&.v=eUdsd0dIb3VUOXdtWkY0VFUwVE8vbEdkZHNlSjBQRklnaFB2d3I5MW94NkkwYXJHRXdBd0xZTDNUS0M2eUNlY0pOZTBYalh5Vk90cEc1K2wwRzFGejRMeXJHUnUva2huMjl4akFHOXNwVjFOU1YvbEhQdCtlZmMrckc2K3RtQzR6UkM0eXdTUkFqNnFqYk5ZcGUzV2tB&traceId=1' }
     ];
@@ -196,7 +196,7 @@
     // WhatsApp 打开
     function openWhatsApp(producto){
       const text = encodeURIComponent(`Hola, quiero información sobre la oferta${producto?(' de '+producto):''} a mitad de precio`);
-      window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${text}`,'_blank');
+      window.open(`${WHATSAPP_PHONE}?text=${text}`,'_blank');
     }
     document.getElementById('btnTopWA').onclick = () => openWhatsApp('');
     document.getElementById('btnBottomWA').onclick = () => openWhatsApp('');

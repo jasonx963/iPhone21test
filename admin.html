@@ -1,143 +1,240 @@
-<!DOCTYPE html>
-<html lang="es">
+<!doctype html>
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Admin – Pedidos & Logística</title>
-  <style>
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;margin:20px}
-    h1{margin:0 0 10px}
-    .bar{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
-    input,select{padding:8px;border:1px solid #ddd;border-radius:8px}
-    button{padding:8px 12px;border:0;border-radius:8px;cursor:pointer}
-    .btn{background:#2563eb;color:#fff}.btn.gray{background:#eee;color:#333}
-    table{width:100%;border-collapse:collapse;margin-top:12px}
-    th,td{border:1px solid #eee;padding:8px;text-align:left}
-    th{background:#fafafa}
-    .row-actions{display:flex;gap:6px}
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>订单后台（KV）</title>
+<style>
+  :root{--c:#dc2626;--bg:#f9fafb;--text:#111827;--muted:#6b7280;--bd:#e5e7eb}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#fff;color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+  .wrap{max-width:1100px;margin:0 auto;padding:16px}
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+  h1{margin:0;font-size:28px}
+  .muted{color:var(--muted);font-size:13px}
+  .row{display:grid;grid-template-columns:repeat(12,1fr);gap:10px;margin-top:12px}
+  .col-3{grid-column:span 3}.col-2{grid-column:span 2}.col-4{grid-column:span 4}.col-6{grid-column:span 6}.col-12{grid-column:span 12}
+  input,select{width:100%;padding:10px 12px;border:1px solid var(--bd);border-radius:10px;font-size:14px}
+  button{padding:10px 14px;border:0;border-radius:10px;cursor:pointer;font-weight:700}
+  .btn{background:#111827;color:#fff}.btn.red{background:var(--c)}.btn.gray{background:#e5e7eb;color:#111827}
+  .toolbar{display:flex;gap:8px;align-items:center}
+  .card{background:#fff;border:1px solid var(--bd);border-radius:14px;padding:12px;margin-top:12px}
+  table{width:100%;border-collapse:collapse}
+  th,td{border-top:1px solid var(--bd);padding:10px 8px;font-size:14px}
+  th{background:#f8fafc;text-align:left}
+  .badge{background:#fee2e2;color:#991b1b;font-weight:800;border-radius:999px;padding:4px 8px;font-size:12px}
+  .right{display:flex;gap:8px;align-items:center}
+  .logout{color:var(--muted);font-size:13px;cursor:pointer}
+  .logout:hover{color:#111}
+  .tip{margin-top:2px}
+  @media(max-width:900px){.col-3,.col-4,.col-6{grid-column:span 12}}
+</style>
 </head>
 <body>
-  <h1>Admin – Pedidos & Logística</h1>
-  <div style="color:#444;margin-bottom:10px">
-    录入或更新订单后点击“保存”，数据会写入后端（Vercel KV）。前端查询接口：<code>/api/orders</code>。
+<div class="wrap">
+  <header>
+    <div>
+      <h1>订单后台</h1>
+      <div class="muted tip">录入或更新订单后点击「保存」。前端查询接口：<code>/api/orders</code></div>
+    </div>
+    <div class="right">
+      <span class="muted" id="adminInfo">已登录</span>
+      <button class="btn gray" id="btnLogout">退出登录</button>
+    </div>
+  </header>
+
+  <!-- 表单区 -->
+  <div class="card">
+    <div class="row">
+      <div class="col-4">
+        <input id="orderId" placeholder="订单号（新增可留空，系统自动生成）" />
+      </div>
+      <div class="col-4">
+        <input id="name" placeholder="客户姓名" />
+      </div>
+      <div class="col-4">
+        <input id="phone" placeholder="手机号（例：+52 1 55...）" />
+      </div>
+
+      <div class="col-4">
+        <input id="product" placeholder="商品（例：iPhone 16 Pro）" />
+      </div>
+      <div class="col-2">
+        <input id="price" placeholder="价格（例：MX$ 999）" />
+      </div>
+      <div class="col-3">
+        <select id="status">
+          <option value="已下单">已下单</option>
+          <option value="已支付">已支付</option>
+          <option value="待发货">待发货</option>
+          <option value="运输中">运输中</option>
+          <option value="已签收">已签收</option>
+          <option value="已取消">已取消</option>
+          <option value="售后中">售后中</option>
+        </select>
+      </div>
+      <div class="col-3">
+        <input id="carrier" placeholder="物流（例：DHL / Estafeta）" />
+      </div>
+
+      <div class="col-6">
+        <input id="tracking" placeholder="物流单号（例：DHL 运单号）" />
+      </div>
+      <div class="col-6 toolbar">
+        <button class="btn red" id="btnSave">保存</button>
+        <button class="btn gray" id="btnDelete">删除</button>
+        <button class="btn" id="btnList">查看全部</button>
+      </div>
+    </div>
   </div>
 
-  <div class="bar">
-    <input id="orderId" placeholder="ID de pedido (ej: PED123456)" />
-    <input id="name" placeholder="Nombre del cliente" />
-    <input id="phone" placeholder="Teléfono (ej: +52 1 55...)" />
-    <input id="product" placeholder="Producto (ej: iPhone 16 Pro)" />
-    <input id="price" placeholder="Precio (MX$)" />
-    <select id="status">
-      <option>Procesando</option>
-      <option>Pagado</option>
-      <option>Enviado</option>
-      <option>Entregado</option>
-    </select>
-    <input id="carrier" placeholder="Transportista (ej: DHL, Estafeta)" />
-    <input id="tracking" placeholder="Núm. de seguimiento" />
-    <button class="btn" id="saveBtn">Guardar</button>
+  <!-- 查询区 -->
+  <div class="card">
+    <div class="row">
+      <div class="col-6">
+        <input id="q" placeholder="按订单号或手机号查询（例：PED123 / +52 1 55...）" />
+      </div>
+      <div class="col-6 toolbar">
+        <button class="btn" id="btnSearch">查询</button>
+      </div>
+    </div>
   </div>
 
-  <div class="bar">
-    <input id="query" placeholder="Buscar por ID / Teléfono" />
-    <button class="btn gray" id="searchBtn">Buscar</button>
-  </div>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Pedido</th><th>Cliente</th><th>Teléfono</th><th>Producto</th><th>Precio</th><th>Estado</th><th>Transportista</th><th>Tracking</th><th>Actualizado</th><th>操作</th>
-      </tr>
-    </thead>
-    <tbody id="tbody"></tbody>
-  </table>
-
-  <script>
-    const ADMIN_TOKEN = localStorage.getItem('ADMIN_TOKEN') || prompt('Admin Token（后台口令）');
-    localStorage.setItem('ADMIN_TOKEN', ADMIN_TOKEN);
-
-    async function upsertOrder(order) {
-      const url = '/api/orders' + (order._update ? ('?orderId=' + encodeURIComponent(order.orderId)) : '');
-      const method = order._update ? 'PUT' : 'POST';
-      const r = await fetch(url, {
-        method,
-        headers: { 'Content-Type':'application/json', 'X-Admin-Token': ADMIN_TOKEN },
-        body: JSON.stringify(order)
-      });
-      const d = await r.json();
-      if(!r.ok){ alert('保存失败: ' + (d.error || r.status)); return; }
-      alert('已保存: ' + d.orderId);
-      searchNow();
-    }
-
-    function getForm(){
-      return {
-        orderId: document.getElementById('orderId').value.trim(),
-        name:    document.getElementById('name').value.trim(),
-        phone:   document.getElementById('phone').value.trim(),
-        product: document.getElementById('product').value.trim(),
-        price:   document.getElementById('price').value.trim(),
-        status:  document.getElementById('status').value,
-        carrier: document.getElementById('carrier').value.trim(),
-        tracking:document.getElementById('tracking').value.trim()
-      };
-    }
-
-    document.getElementById('saveBtn').onclick = async () => {
-      const o = getForm();
-      if(!o.orderId){ alert('orderId 必填'); return; }
-      // 判定是新增还是更新
-      const existing = await fetch('/api/orders?orderId=' + encodeURIComponent(o.orderId)).then(r=>r.json());
-      if(existing.length){ o._update = true; }
-      upsertOrder(o);
-    };
-
-    async function searchNow(){
-      const q = document.getElementById('query').value.trim();
-      let url = '/api/orders?';
-      if(q){
-        if(/^([A-Za-z]{3,}|PED)\d+/i.test(q)) url += 'orderId=' + encodeURIComponent(q);
-        else url += 'phone=' + encodeURIComponent(q);
-      } else {
-        // 无查询参数时不显示全部，避免扫描KV；可按需扩展
-        document.getElementById('tbody').innerHTML = '';
-        return;
-      }
-      const rows = await fetch(url).then(r=>r.json());
-      const tbody = document.getElementById('tbody');
-      tbody.innerHTML = rows.map((o,i)=>`
+  <!-- 列表 -->
+  <div class="card">
+    <table id="tbl">
+      <thead>
         <tr>
-          <td>${o.orderId||''}</td>
-          <td>${o.name||''}</td>
-          <td>${o.phone||''}</td>
-          <td>${o.product||''}</td>
-          <td>${o.price||''}</td>
-          <td>${o.status||''}</td>
-          <td>${o.carrier||''}</td>
-          <td>${o.tracking||''}</td>
-          <td>${o.updatedAt||''}</td>
-          <td class="row-actions">
-            <button onclick="fillForm(${i})">编辑</button>
-          </td>
+          <th>订单号</th>
+          <th>客户</th>
+          <th>电话</th>
+          <th>商品</th>
+          <th>价格</th>
+          <th>状态</th>
+          <th>物流</th>
+          <th>单号</th>
+          <th>更新时间</th>
+          <th>操作</th>
         </tr>
-      `).join('');
-      window._lastRows = rows;
-    }
-    document.getElementById('searchBtn').onclick = searchNow;
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+</div>
 
-    window.fillForm = (i)=>{
-      const o = (window._lastRows||[])[i]; if(!o) return;
-      document.getElementById('orderId').value = o.orderId||'';
-      document.getElementById('name').value    = o.name||'';
-      document.getElementById('phone').value   = o.phone||'';
-      document.getElementById('product').value = o.product||'';
-      document.getElementById('price').value   = o.price||'';
-      document.getElementById('status').value  = o.status||'Procesando';
-      document.getElementById('carrier').value = o.carrier||'';
-      document.getElementById('tracking').value= o.tracking||'';
+<script>
+  const API = '/api/orders';
+  const tokenKey = 'admin_token';
+
+  // —— 登录（本地保存 token） ——
+  async function ensureToken() {
+    let t = localStorage.getItem(tokenKey);
+    if (!t) {
+      t = prompt('请输入后台口令（ADMIN_TOKEN）：') || '';
+      if (!t.trim()) { alert('未输入口令'); location.reload(); return; }
+      localStorage.setItem(tokenKey, t.trim());
+    }
+    document.getElementById('adminInfo').textContent = '已登录';
+    return t.trim();
+  }
+  function logout() {
+    localStorage.removeItem(tokenKey);
+    location.reload();
+  }
+  document.getElementById('btnLogout').onclick = logout;
+
+  // —— 工具 ——
+  const $ = (id) => document.getElementById(id);
+  function val(id){ return $(id).value.trim(); }
+  function set(id,v){ $(id).value = v ?? ''; }
+  function rowHtml(o){
+    return `<tr>
+      <td><span class="badge">${o.orderId||'-'}</span></td>
+      <td>${o.name||'-'}</td>
+      <td>${o.phone||'-'}</td>
+      <td>${o.product||'-'}</td>
+      <td>${o.price||'-'}</td>
+      <td>${o.status||'-'}</td>
+      <td>${o.carrier||'-'}</td>
+      <td>${o.tracking||'-'}</td>
+      <td>${o.updatedAt||'-'}</td>
+      <td>
+        <button class="btn gray" onclick="fill('${o.orderId||''}')">填入</button>
+        <button class="btn red" onclick="doDelete('${o.orderId||''}')">删除</button>
+      </td>
+    </tr>`;
+  }
+  function render(list){ $('tbody').innerHTML = (list||[]).map(rowHtml).join('') || '<tr><td colspan="10">暂无数据</td></tr>'; }
+  window.fill = (id) => { set('orderId', id); };
+
+  // —— 保存（orderId 为空时，后端自动生成） ——
+  async function save() {
+    const t = await ensureToken();
+    const payload = {
+      orderId: val('orderId') || undefined, // 允许为空
+      name: val('name'),
+      phone: val('phone'),
+      product: val('product'),
+      price: val('price'),
+      status: val('status'),
+      carrier: val('carrier'),
+      tracking: val('tracking'),
     };
-  </script>
+    const res = await fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type':'application/json', 'X-Admin-Token': t },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    if (!res.ok || !data.ok) { alert('保存失败：' + JSON.stringify(data)); return; }
+    if (data.orderId) set('orderId', data.orderId); // 回填系统生成的订单号
+    alert('保存成功！订单号：' + (data.orderId || payload.orderId));
+    await search(); // 刷新一遍
+  }
+
+  // —— 删除（按当前输入的订单号） ——
+  async function doDelete(idOpt) {
+    const id = idOpt || val('orderId');
+    if (!id) { alert('请输入要删除的订单号'); return; }
+    if (!confirm('确认删除订单：'+id+' ？')) return;
+    const t = await ensureToken();
+    const res = await fetch(API, {
+      method: 'DELETE',
+      headers: { 'Content-Type':'application/json','X-Admin-Token':t },
+      body: JSON.stringify({ orderId: id })
+    });
+    const data = await res.json();
+    if (!res.ok || !data.ok) { alert('删除失败：' + JSON.stringify(data)); return; }
+    alert('已删除：' + id);
+    await search();
+  }
+
+  // —— 查询（orderId 或 phone） ——
+  async function search() {
+    const q = val('q') || val('orderId') || val('phone');
+    if (!q) { alert('请输入订单号或手机号'); return; }
+    const url = q.startsWith('+') ? `${API}?phone=${encodeURIComponent(q)}` : `${API}?orderId=${encodeURIComponent(q)}`;
+    const res = await fetch(url,{ cache:'no-store' });
+    const list = await res.json();
+    render(list);
+  }
+
+  // —— 查看全部（需要管理员） ——
+  async function listAll() {
+    const t = await ensureToken();
+    const res = await fetch(`${API}?list=true`, { headers: { 'X-Admin-Token': t }, cache:'no-store' });
+    const data = await res.json();
+    if (!res.ok || !data.ok) { alert('获取失败：' + JSON.stringify(data)); return; }
+    render(data.items || []);
+  }
+
+  $('btnSave').onclick = save;
+  $('btnDelete').onclick = () => doDelete();
+  $('btnSearch').onclick = search;
+  $('btnList').onclick = listAll;
+
+  // 首次进入确保已登录
+  ensureToken();
+</script>
 </body>
 </html>

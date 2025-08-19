@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>iPhone 16 / Pro / Pro Max – ¡Mitad de precio HOY!</title>
-  <meta name="description" content="Landing estilo Pinduoduo: iPhone 16 a mitad de precio, unidades limitadas, rastreo y atención por WhatsApp.">
+  <title>iPhone 16 / Pro / Pro Max – Hoy a Mitad de Precio</title>
+  <meta name="description" content="Página estilo Pinduoduo: iPhone 16 toda la serie a mitad de precio, cantidades limitadas, con seguimiento de envío y atención al cliente para ordenar.">
   <style>
     :root{
       --red-600:#dc2626;--red-500:#ef4444;--red-400:#f87171;--yellow:#fde047;
@@ -21,13 +21,11 @@
     .chip{background:#fff;color:var(--red-600);font-size:11px;font-weight:800;border-radius:999px;padding:4px 8px}
     .btn-white{background:#fff;color:var(--red-600);font-weight:800;border:0;border-radius:999px;padding:10px 14px;cursor:pointer}
 
-    /* 顶部原“跑马灯”占位（仍保留，不显示条带；内容改为左侧小框竖向滚动） */
-    .ticker{display:none}
+    .ticker{overflow:hidden;white-space:nowrap;border-top:1px solid rgba(255,255,255,.35);border-bottom:1px solid rgba(255,255,255,.35);padding:8px 0;color:#ffe4e6;font-weight:800}
     #tickerText{display:inline-block;will-change:transform}
 
-    .hero{display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:24px 0}
+    .hero{display:grid;grid-template-columns:1fr;gap:24px;padding:24px 0}
     @media(min-width:900px){.hero{grid-template-columns:1fr 1fr;padding:40px 0}}
-    @media(max-width:899px){.hero{grid-template-columns:1fr;}}
     h1{font-size:34px;line-height:1.1;margin:0 0 8px;font-weight:900}
     .h1-sub{color:var(--yellow)}
     .lead{opacity:.95;margin:8px 0 14px}
@@ -35,45 +33,8 @@
     .time{display:flex;align-items:center;justify-content:space-between;gap:12px}
     .tchip{background:rgba(0,0,0,.35);padding:8px 10px;border-radius:8px;font-weight:900;font-size:18px;min-width:44px;text-align:center}
     .colon{font-weight:900;margin:0 4px}
-
-    /* 右侧 iPhone 系列图：桌面更大，手机完整显示 */
-    .promo-box{
-      position: relative;
-      border-radius: 16px;
-      overflow: hidden;
-      background: #fff;
-      width: 320px;
-      height: 320px;
-      justify-self: end;
-      align-self: start;
-      box-shadow: 0 10px 24px rgba(0,0,0,.15);
-    }
-    .promo-box img{
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      object-position: center;
-      display:block;
-    }
-
-    /* 左侧竖向滚动播报：正方形 */
-    .feed-panel{
-      margin-top: 14px;
-      display: inline-block;
-      width: 260px;
-      aspect-ratio: 1 / 1;
-      background: rgba(255,255,255,.12);
-      border: 1px solid rgba(255,255,255,.25);
-      border-radius: 16px;
-      overflow: hidden;
-    }
-    .feed-scroll{position: relative;width:100%;height:100%;}
-    .feed-list{position:absolute;left:0;top:0;width:100%;will-change:transform}
-    .feed-item{
-      padding:10px 12px;line-height:1.35;color:#ffe4e6;font-weight:800;font-size:13px;
-      border-bottom:1px dashed rgba(255,255,255,.22);
-    }
-    .feed-item:last-child{border-bottom:0}
+    .thumb{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:4/3;background:#fee2e2}
+    .thumb img{width:100%;height:100%;object-fit:cover;display:block}
 
     .grid{display:grid;grid-template-columns:1fr;gap:16px;padding-bottom:140px}
     @media(min-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}
@@ -103,7 +64,7 @@
     .tag{background:var(--red-600);color:#fff;font-weight:900;padding:6px 10px;border-radius:999px;font-size:12px}
     .small-btn{background:var(--red-600);color:#fff;font-weight:900;padding:10px 14px;border:0;border-radius:12px;cursor:pointer}
 
-    /* 个人中心 Modal */
+    /* Centro de Usuario Modal */
     .modal-mask{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:70}
     .modal{background:#fff;color:#111;border-radius:16px;max-width:520px;width:92%;padding:18px}
     .modal h3{margin:0 0 8px}
@@ -112,11 +73,6 @@
     .modal .actions{display:flex;justify-content:flex-end;gap:8px;margin-top:12px}
     .btn{padding:10px 14px;border-radius:10px;border:0;cursor:pointer}.btn.gray{background:#eee}.btn.primary{background:#dc2626;color:#fff}
     .order-card{background:#fafafa;border:1px solid #eee;border-radius:12px;padding:10px;margin-top:10px}
-
-    @media (max-width: 899px){
-      .promo-box{ width:240px;height:240px;justify-self:center }
-      .feed-panel{ width:200px }
-    }
   </style>
 </head>
 <body>
@@ -124,14 +80,13 @@
     <div class="container bar">
       <div class="brand">
         <div style="font-size:20px;font-weight:900">MegaOferta</div>
-        <span class="chip">Estilo PDD</span>
+        <span class="chip">Estilo Pinduoduo</span>
       </div>
       <div style="display:flex;gap:8px">
-        <button class="btn-white" id="btnCentro">Centro personal</button>
-        <button class="btn-white" id="btnTopWA">Atención WhatsApp</button>
+        <button class="btn-white" id="btnCentro">Centro de Usuario</button>
+        <button class="btn-white" id="btnTopWA">Atención al Cliente</button>
       </div>
     </div>
-    <!-- 保留占位但不显示条带 -->
     <div class="container ticker">
       <span id="tickerText">Cargando compras recientes…</span>
     </div>
@@ -140,76 +95,65 @@
   <main class="container">
     <section class="hero">
       <div>
-        <h1>iPhone 16 / Pro / Pro Max<br><span class="h1-sub">¡Mitad de precio HOY, tiempo limitado!</span></h1>
-        <p class="lead">Pago seguro | Envío exprés | Rastreo disponible</p>
+        <h1>iPhone 16 / Pro / Pro Max<br><span class="h1-sub">Hoy a Mitad de Precio, Oferta Limitada</span></h1>
+        <p class="lead">Garantía Original｜Envío Rápido｜Seguimiento de Envío</p>
         <div class="panel">
           <div class="time">
-            <div style="font-weight:800">Termina en</div>
+            <div style="font-weight:800">Tiempo restante</div>
             <div>
               <span class="tchip" id="d">00</span><span class="colon">:</span>
               <span class="tchip" id="h">00</span><span class="colon">:</span>
               <span class="tchip" id="m">00</span><span class="colon">:</span>
               <span class="tchip" id="s">00</span>
             </div>
-            <div style="font-size:12px;opacity:.95;font-weight:800">¡Miles comprando ahora mismo!</div>
-          </div>
-        </div>
-
-        <!-- 左侧竖向滚动播报（正方形） -->
-        <div class="feed-panel">
-          <div class="feed-scroll">
-            <div id="feedList" class="feed-list"></div>
+            <div style="font-size:12px;opacity:.95;font-weight:800">Miles de usuarios están comprando</div>
           </div>
         </div>
       </div>
-
-      <!-- 右侧 iPhone 系列大图（自适应） -->
-      <div class="promo-box">
-        <img
-          src="https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-pro-finish-select-202409-6-3inch_GEO_US?wid=5120&hei=2880&fmt=webp&qlt=90&.v=eUdsd0dIb3VUOXdtWkY0VFUwVE8vbEdkZHNlSjBQRklnaFB2d3I5MW94NHhsaFZBQ3Ira2kyRm5zQ1YwdHhkQ0FOL1haWCt6TDJ0UWlLb09XajVNdENYR1ZZZnEyMVlVQUliTThGMjNyaFFDdURYTkVwaGQzbSsxZFlGem8yMnNzdEtHZGFwc1lPREtOL3lkcFhMQ1JR&traceId=1"
-          alt="iPhone 16 Pro familia" />
+      <div class="thumb">
+        <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1200&auto=format&fit=crop" alt="iPhone promo"/>
       </div>
     </section>
 
-    <!-- 商品列表 -->
+    <!-- Lista de productos -->
     <section class="grid" id="grid"></section>
   </main>
 
-  <!-- 底部条 -->
+  <!-- Barra inferior -->
   <div class="stickybar-wrap">
     <div class="container">
       <div class="stickybar">
         <div style="display:flex;align-items:center;gap:10px;">
-          <span class="tag">Oferta relámpago</span>
-          <div id="bottomTimer" style="font-weight:900;font-size:14px;">Quedan 00:00:00</div>
+          <span class="tag">Oferta Relámpago</span>
+          <div id="bottomTimer" style="font-weight:900;font-size:14px;">Restante 00:00:00</div>
         </div>
-        <button class="small-btn" id="btnBottomWA">Atención WhatsApp</button>
+        <button class="small-btn" id="btnBottomWA">Atención al Cliente</button>
       </div>
     </div>
   </div>
 
-  <!-- 个人中心 Modal -->
+  <!-- Centro de Usuario Modal -->
   <div class="modal-mask" id="modalMask">
     <div class="modal">
-      <h3>Centro personal</h3>
-      <p style="margin:0 0 8px;color:#444">Ingresa tu <b>número de pedido</b> o <b>teléfono</b> para ver estado y rastreo.</p>
-      <label for="q">Pedido / Teléfono</label>
-      <input id="q" placeholder="Ej.: ORD2025… / +52 1 55…" />
+      <h3>Centro de Usuario</h3>
+      <p style="margin:0 0 8px;color:#444">Ingresa tu <b>Número de Orden</b> o <b>Teléfono</b> para consultar envío y estado.</p>
+      <label for="q">Orden / Teléfono</label>
+      <input id="q" placeholder="Ejemplo: ORD2025... / +52 1 55..." />
       <div class="actions">
         <button class="btn gray" id="btnCerrar">Cerrar</button>
-        <button class="btn primary" id="btnBuscar">Buscar</button>
+        <button class="btn primary" id="btnBuscar">Consultar</button>
       </div>
       <div id="resultBox"></div>
     </div>
   </div>
 
   <script>
-    // ========== Config ==========
-    const WHATSAPP_PHONE = '5215566778899';   // tu número en formato internacional
-    const FINISH_IN_MINUTES = 120;            // cuenta regresiva (minutos)
-    const CURRENCY = 'MX$';
+    // ========== Configuración ==========
+    const WHATSAPP_PHONE = '5215566778899';  // Cambia al número real
+    const FINISH_IN_MINUTES = 120;           
+    const CURRENCY = 'MXN ';
 
-    // Productos (con color y almacenamiento)
+    // Productos
     const productos = [
       { id:'ip16', nombre:'iPhone 16', precioOriginal:999, descuento:.5, vendidos:5321,
         opciones:{ almacenamiento:['128GB','256GB','512GB'], color:['Negro','Blanco','Azul'] },
@@ -224,13 +168,13 @@
 
     // WhatsApp
     function openWhatsApp(producto){
-      const text = encodeURIComponent(`Hola, me interesa${producto?(' '+producto):''} a mitad de precio.`);
+      const text = encodeURIComponent(`Hola, quiero información sobre${producto?(' '+producto):''} en la oferta de mitad de precio.`);
       window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${text}`,'_blank');
     }
     document.getElementById('btnTopWA').onclick = () => openWhatsApp('');
     document.getElementById('btnBottomWA').onclick = () => openWhatsApp('');
 
-    // ========== Cuenta regresiva persistente ==========
+    // ========== Cuenta regresiva ==========
     function getDeadline(){
       const key='pdd_iphone_deadline'; const saved=localStorage.getItem(key); const now=Date.now();
       let deadline=saved?parseInt(saved,10):0;
@@ -246,7 +190,7 @@
       document.getElementById('h').textContent=two(h);
       document.getElementById('m').textContent=two(m);
       document.getElementById('s').textContent=two(s);
-      document.getElementById('bottomTimer').textContent=`Quedan ${two(h)}:${two(m)}:${two(s)}`;
+      document.getElementById('bottomTimer').textContent=`Restante ${two(h)}:${two(m)}:${two(s)}`;
     }
     setInterval(tick,1000); tick();
 
@@ -274,10 +218,10 @@
               ${p.opciones.color.map(opt=>`<button class="opt-btn" data-id="${p.id}" data-tipo="color" data-valor="${opt}">${opt}</button>`).join('')}
             </div>
 
-            <div class="meta"><span>${p.vendidos.toLocaleString()} vendidos</span><span>Envío inmediato</span></div>
+            <div class="meta"><span>${p.vendidos.toLocaleString()} comprados</span><span>Envío inmediato</span></div>
             <div class="bar"><div class="fill" style="width:${prog}%"></div></div>
             <div style="margin-top:12px">
-              <button class="btn-red" data-contact="${p.nombre}">Preguntar y comprar</button>
+              <button class="btn-red" data-contact="${p.nombre}">Consultar y Comprar</button>
             </div>
           </div>
         </article>`;
@@ -300,73 +244,7 @@
     }
     renderProductos();
 
-    // ========== Centro personal: /api/orders ==========
+    // ========== Consulta de pedidos ==========
     const modal=document.getElementById('modalMask'), resultBox=document.getElementById('resultBox'), inputQ=document.getElementById('q');
     document.getElementById('btnCentro').onclick=()=>{ modal.style.display='flex'; inputQ.focus(); };
-    document.getElementById('btnCerrar').onclick=()=>{ modal.style.display='none'; resultBox.innerHTML=''; inputQ.value=''; };
-
-    async function fetchOrders(){
-      try{
-        const q=inputQ.value.trim();
-        if(!q) return [];
-        let url='/api/orders?';
-        if(q.startsWith('+')) url+='phone='+encodeURIComponent(q);
-        else url+='orderId='+encodeURIComponent(q);
-        const res = await fetch(url,{cache:'no-store'});
-        if(!res.ok) return [];
-        return await res.json();
-      }catch(e){ return []; }
-    }
-    document.getElementById('btnBuscar').onclick=async ()=>{
-      resultBox.innerHTML='<div>Buscando…</div>';
-      const found = await fetchOrders();
-      if(!found || found.length===0){ resultBox.innerHTML='<div style="color:#c00">No encontrado. Verifica tu pedido/teléfono.</div>'; return; }
-      resultBox.innerHTML = found.map(o=>`
-        <div class="order-card">
-          <div><b>Pedido:</b> ${o.orderId || '-'}</div>
-          <div><b>Cliente:</b> ${o.name || '-'}</div>
-          <div><b>Tel.:</b> ${o.phone || '-'}</div>
-          <div><b>Producto:</b> ${o.product || '-'} ${o.color?('('+o.color+')'):''} ×${o.qty||1}</div>
-          <div><b>Precio:</b> ${o.price || '-'}</div>
-          <div><b>Estado:</b> ${o.status || 'En proceso'}</div>
-          <div><b>Paquetería:</b> ${o.carrier || '-'}</div>
-          <div><b>Guía:</b> ${o.tracking || '-'}</div>
-          <div><b>Actualizado:</b> ${o.updatedAt || '-'}</div>
-        </div>
-      `).join('');
-    };
-
-    // ========== 竖向滚动字幕 /api/feed ==========
-    async function loadTicker(){
-      try{
-        const res = await fetch('/api/feed',{cache:'no-store'});
-        const { ok, items } = await res.json();
-        if(!ok || !items || !items.length) return;
-
-        const lines = items.map(o=>{
-          const when = (o.updatedAt||'').slice(5,16).replace(' ',' ');
-          const qty = o.qty || 1;
-          return `【${when}】${o.name} compró ${o.product}${o.color?(' ('+o.color+')'):''} ×${qty} — precio ${o.price || 'MX$—'} — paquetería ${o.carrier||'—'}${o.trackingMasked?(' guía '+o.trackingMasked):''} — tel. ${o.phoneMasked||'—'}`;
-        });
-
-        const list = document.getElementById('feedList');
-        if(!list) return;
-        list.innerHTML = lines.map(t=>`<div class="feed-item">${t}</div>`).join('');
-        const itemH = list.firstElementChild ? list.firstElementChild.getBoundingClientRect().height : 24;
-
-        // 复制一遍实现无缝循环
-        list.insertAdjacentHTML('beforeend', list.innerHTML);
-
-        let idx = 0;
-        function step(){
-          idx = (idx + 1) % lines.length;
-          list.style.transition = 'transform .45s ease-out';
-          list.style.transform  = `translateY(-${idx * itemH}px)`;
-        }
-        setInterval(step, 2200);
-      }catch(e){}
-    }
-    loadTicker();
-  </script>
-</body>
-</html>
+    document.getElementById('btnCerrar').onclick=

@@ -1,44 +1,74 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>iPhone 16 / Pro / Pro Max – Oferta Mitad de Precio</title>
-  <meta name="description" content="Promoción estilo Pinduoduo: iPhone 16, 16 Pro y 16 Pro Max a mitad de precio. Unidades limitadas. Envío rápido. Contacta por WhatsApp." />
+  <title>iPhone 16 / Pro / Pro Max – 今日半价</title>
+  <meta name="description" content="拼多多风格落地页：iPhone 16 全系半价，数量有限，支持物流查询，联系客服下单。">
   <style>
-    :root{--red-600:#dc2626;--red-500:#ef4444;--red-400:#f87171;--yellow-300:#fde047;--bg:linear-gradient(180deg,var(--red-600),var(--red-500) 50%,var(--red-400))}
-    *{box-sizing:border-box} html,body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial} body{background:var(--bg);color:#fff}
+    :root{
+      --red-600:#dc2626;--red-500:#ef4444;--red-400:#f87171;--yellow:#fde047;
+      --ink:#7f1d1d;--muted:#9b1c1c
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+    body{background:linear-gradient(180deg,var(--red-600),var(--red-500) 50%,var(--red-400));color:#fff}
     .container{max-width:1100px;margin:0 auto;padding:0 16px}
-    header{position:sticky;top:0;z-index:40;backdrop-filter:blur(6px);background:rgba(220,38,38,.85);border-bottom:1px solid rgba(255,255,255,.25)}
+
+    header{position:sticky;top:0;z-index:50;backdrop-filter:blur(6px);background:rgba(220,38,38,.88);border-bottom:1px solid rgba(255,255,255,.25)}
     header .bar{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
-    .brand{display:flex;align-items:center;gap:8px;font-weight:900}.chip{background:#fff;color:var(--red-600);font-size:11px;font-weight:800;border-radius:999px;padding:4px 8px}
+    .brand{display:flex;align-items:center;gap:8px}
+    .chip{background:#fff;color:var(--red-600);font-size:11px;font-weight:800;border-radius:999px;padding:4px 8px}
     .btn-white{background:#fff;color:var(--red-600);font-weight:800;border:0;border-radius:999px;padding:10px 14px;cursor:pointer}
-    .btn-red{background:var(--red-600);color:#fff;font-weight:900;border:0;padding:12px;border-radius:14px;cursor:pointer}
-    .hero{display:grid;grid-template-columns:1fr;gap:24px;padding:32px 0 24px} @media(min-width:900px){.hero{grid-template-columns:1fr 1fr;padding:56px 0 40px}}
-    h1{font-size:34px;line-height:1.1;margin:0 0 8px;font-weight:900}.h1-sub{color:var(--yellow-300)}
-    p.lead{opacity:.95;margin:8px 0 14px}
-    .badges{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.92);color:#7f1d1d;padding:6px 8px;border-radius:999px;font-size:12px;font-weight:800}
+
+    .ticker{overflow:hidden;white-space:nowrap;border-top:1px solid rgba(255,255,255,.35);border-bottom:1px solid rgba(255,255,255,.35);padding:8px 0;color:#ffe4e6;font-weight:800}
+    #tickerText{display:inline-block;will-change:transform}
+
+    .hero{display:grid;grid-template-columns:1fr;gap:24px;padding:24px 0}
+    @media(min-width:900px){.hero{grid-template-columns:1fr 1fr;padding:40px 0}}
+    h1{font-size:34px;line-height:1.1;margin:0 0 8px;font-weight:900}
+    .h1-sub{color:var(--yellow)}
+    .lead{opacity:.95;margin:8px 0 14px}
     .panel{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:12px;border-radius:18px}
-    .time{display:flex;align-items:center;justify-content:space-between;gap:12px}.chips{display:flex;gap:8px}
-    .tchip{background:rgba(0,0,0,.35);padding:8px 10px;border-radius:8px;font-weight:900;font-size:18px;min-width:44px;text-align:center}.colon{font-weight:900;margin:0 4px}
+    .time{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .tchip{background:rgba(0,0,0,.35);padding:8px 10px;border-radius:8px;font-weight:900;font-size:18px;min-width:44px;text-align:center}
+    .colon{font-weight:900;margin:0 4px}
     .thumb{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:4/3;background:#fee2e2}
     .thumb img{width:100%;height:100%;object-fit:cover;display:block}
-    .grid{display:grid;grid-template-columns:1fr;gap:16px;padding-bottom:140px} @media(min-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}
-    .card{background:#fff;color:#7f1d1d;border-radius:20px;box-shadow:0 12px 30px rgba(0,0,0,.22);overflow:hidden}.card .content{padding:16px}
-    .pimg{aspect-ratio:4/3;border-radius:16px;overflow:hidden;background:#fee2e2}.pimg img{width:100%;height:100%;object-fit:cover;display:block}
+
+    .grid{display:grid;grid-template-columns:1fr;gap:16px;padding-bottom:140px}
+    @media(min-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}
+    .card{background:#fff;color:var(--ink);border-radius:20px;box-shadow:0 12px 30px rgba(0,0,0,.22);overflow:hidden}
+    .card .content{padding:16px}
+    .pimg{aspect-ratio:4/3;border-radius:16px;overflow:hidden;background:#fee2e2}
+    .pimg img{width:100%;height:100%;object-fit:cover;display:block}
     .title{margin:12px 0 8px;font-size:18px;font-weight:900}
-    .price{display:flex;align-items:flex-end;gap:10px}.price .new{font-size:28px;font-weight:900}.price .old{text-decoration:line-through;opacity:.7;font-size:14px}.off{background:rgba(220,38,38,.08);color:var(--red-600);padding:2px 8px;border-radius:999px;font-size:12px;font-weight:800}
-    .opt-label{font-size:12px;font-weight:800;margin:8px 0 4px}.opt-row{display:flex;flex-wrap:wrap;gap:8px}
-    .opt-btn{background:#fff;color:#7f1d1d;border:1px solid #fecaca;font-weight:700;font-size:13px;padding:6px 10px;border-radius:999px;cursor:pointer}
+    .price{display:flex;align-items:flex-end;gap:10px;margin:8px 0}
+    .price .new{font-size:28px;font-weight:900}
+    .price .old{text-decoration:line-through;opacity:.7;font-size:14px}
+    .off{background:rgba(220,38,38,.08);color:var(--red-600);padding:2px 8px;border-radius:999px;font-size:12px;font-weight:800}
+
+    .opt-label{font-size:12px;font-weight:800;margin:8px 0 4px}
+    .opt-row{display:flex;flex-wrap:wrap;gap:8px}
+    .opt-btn{background:#fff;color:var(--ink);border:1px solid #fecaca;font-weight:700;font-size:13px;padding:6px 10px;border-radius:999px;cursor:pointer}
     .opt-btn.active{background:var(--red-600);color:#fff;border-color:var(--red-600)}
+
     .meta{display:flex;align-items:center;justify-content:space-between;font-size:11px;font-weight:800;color:#b91c1c;margin-top:8px}
-    .bar{width:100%;height:8px;background:#fee2e2;border-radius:999px;overflow:hidden}.fill{height:100%;background:var(--red-600);width:30%}
-    .stickybar-wrap{position:fixed;left:12px;right:12px;bottom:12px;z-index:50}.stickybar{background:#fff;color:#7f1d1d;border-radius:16px;box-shadow:0 18px 40px rgba(0,0,0,.28);padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .tag{background:var(--red-600);color:#fff;font-weight:900;padding:6px 10px;border-radius:999px;font-size:12px}.small-btn{background:var(--red-600);color:#fff;font-weight:900;padding:10px 14px;border:0;border-radius:12px;cursor:pointer}
-    /* Modal */
-    .modal-mask{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:60}
+    .bar{width:100%;height:8px;background:#fee2e2;border-radius:999px;overflow:hidden}
+    .fill{height:100%;background:var(--red-600);width:30%}
+
+    .btn-red{background:var(--red-600);color:#fff;font-weight:900;border:0;padding:12px 16px;border-radius:14px;cursor:pointer;width:100%}
+
+    .stickybar-wrap{position:fixed;left:12px;right:12px;bottom:12px;z-index:60}
+    .stickybar{background:#fff;color:var(--ink);border-radius:16px;box-shadow:0 18px 40px rgba(0,0,0,.28);padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .tag{background:var(--red-600);color:#fff;font-weight:900;padding:6px 10px;border-radius:999px;font-size:12px}
+    .small-btn{background:var(--red-600);color:#fff;font-weight:900;padding:10px 14px;border:0;border-radius:12px;cursor:pointer}
+
+    /* 个人中心 Modal */
+    .modal-mask{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:70}
     .modal{background:#fff;color:#111;border-radius:16px;max-width:520px;width:92%;padding:18px}
-    .modal h3{margin:0 0 8px}.modal label{font-size:13px;font-weight:700}
+    .modal h3{margin:0 0 8px}
+    .modal label{font-size:13px;font-weight:700}
     .modal input{width:100%;padding:10px;border:1px solid #ddd;border-radius:10px;margin-top:6px}
     .modal .actions{display:flex;justify-content:flex-end;gap:8px;margin-top:12px}
     .btn{padding:10px 14px;border-radius:10px;border:0;cursor:pointer}.btn.gray{background:#eee}.btn.primary{background:#dc2626;color:#fff}
@@ -48,32 +78,36 @@
 <body>
   <header>
     <div class="container bar">
-      <div class="brand"><div style="font-size:20px;">MegaOferta</div><span class="chip">Estilo PDD</span></div>
-      <div style="display:flex;gap:8px">
-        <button class="btn-white" id="btnCentro">Centro de pedidos</button>
-        <button class="btn-white" id="btnTopWA">Servicio al cliente</button>
+      <div class="brand">
+        <div style="font-size:20px;font-weight:900">MegaOferta</div>
+        <span class="chip">拼多多风</span>
       </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn-white" id="btnCentro">个人中心</button>
+        <button class="btn-white" id="btnTopWA">联系客服</button>
+      </div>
+    </div>
+    <div class="container ticker">
+      <span id="tickerText">加载最新成交…</span>
     </div>
   </header>
 
   <main class="container">
     <section class="hero">
       <div>
-        <h1>iPhone 16 / Pro / Pro Max<br><span class="h1-sub">¡Mitad de precio HOY!</span></h1>
-        <p class="lead">Promoción relámpago estilo Pinduoduo. Unidades limitadas, garantía oficial y envío rápido.</p>
-        <div class="badges"><span class="badge">Pago seguro</span><span class="badge">Devolución 7 días</span><span class="badge">Envío 24-48h</span></div>
+        <h1>iPhone 16 / Pro / Pro Max<br><span class="h1-sub">今日半价，限时秒杀</span></h1>
+        <p class="lead">正品保障｜极速发货｜支持物流查询</p>
         <div class="panel">
-          <div id="timeBox" class="time">
-            <div style="font-weight:800">Tiempo restante</div>
-            <div class="chips">
-              <div class="tchip" id="d">00</div><span class="colon">:</span>
-              <div class="tchip" id="h">00</div><span class="colon">:</span>
-              <div class="tchip" id="m">00</div><span class="colon">:</span>
-              <div class="tchip" id="s">00</div>
+          <div class="time">
+            <div style="font-weight:800">距离活动结束</div>
+            <div>
+              <span class="tchip" id="d">00</span><span class="colon">:</span>
+              <span class="tchip" id="h">00</span><span class="colon">:</span>
+              <span class="tchip" id="m">00</span><span class="colon">:</span>
+              <span class="tchip" id="s">00</span>
             </div>
-            <div style="font-size:12px;opacity:.95;font-weight:800">¡Miles comprando ahora mismo!</div>
+            <div style="font-size:12px;opacity:.95;font-weight:800">千万用户正在拼单</div>
           </div>
-          <div id="ended" class="hidden" style="text-align:center;font-weight:900;">Oferta finalizada</div>
         </div>
       </div>
       <div class="thumb">
@@ -81,58 +115,66 @@
       </div>
     </section>
 
+    <!-- 商品列表 -->
     <section class="grid" id="grid"></section>
   </main>
 
+  <!-- 底部条 -->
   <div class="stickybar-wrap">
     <div class="container">
       <div class="stickybar">
-        <div style="display:flex;align-items:center;gap:10px;"><span class="tag">Oferta Flash</span><div id="bottomTimer" style="font-weight:900;font-size:14px;">Termina en 00h 00m 00s</div></div>
-        <button class="small-btn" id="btnBottomWA">Servicio al cliente</button>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span class="tag">限时疯抢</span>
+          <div id="bottomTimer" style="font-weight:900;font-size:14px;">剩余 00:00:00</div>
+        </div>
+        <button class="small-btn" id="btnBottomWA">联系客服</button>
       </div>
     </div>
   </div>
 
-  <!-- Centro de pedidos -->
+  <!-- 个人中心 Modal -->
   <div class="modal-mask" id="modalMask">
     <div class="modal">
-      <h3>Centro de pedidos</h3>
-      <p style="margin:0 0 8px;color:#444">Ingresa tu <b>ID de pedido</b> o <b>teléfono</b> para ver el estado y logística.</p>
-      <label for="q">ID / Teléfono</label>
-      <input id="q" placeholder="Ej: PED123456 / +52 1 55..." />
+      <h3>个人中心</h3>
+      <p style="margin:0 0 8px;color:#444">输入你的 <b>订单号</b> 或 <b>手机号</b> 查询物流与状态。</p>
+      <label for="q">订单号 / 手机号</label>
+      <input id="q" placeholder="例如：ORD2025... / +52 1 55..." />
       <div class="actions">
-        <button class="btn gray" id="btnCerrar">Cerrar</button>
-        <button class="btn primary" id="btnBuscar">Buscar</button>
+        <button class="btn gray" id="btnCerrar">关闭</button>
+        <button class="btn primary" id="btnBuscar">查询</button>
       </div>
       <div id="resultBox"></div>
     </div>
   </div>
 
   <script>
-    // ===== Config =====
-    const WHATSAPP_PHONE = '5215566778899';
-    const FINISH_IN_MINUTES = 120;
+    // ========== 配置 ==========
+    const WHATSAPP_PHONE = '5215566778899';  // 改成你的 WhatsApp 国际号
+    const FINISH_IN_MINUTES = 120;           // 倒计时分钟
     const CURRENCY = 'MX$';
 
+    // 商品配置（已包含 颜色与存储）
     const productos = [
       { id:'ip16', nombre:'iPhone 16', precioOriginal:999, descuento:.5, vendidos:5321,
-        opciones:{ almacenamiento:['128 GB','256 GB','512 GB'], color:['Negro','Plata','Azul'] },
+        opciones:{ almacenamiento:['128GB','256GB','512GB'], color:['黑色','白色','蓝色'] },
         img:'https://images.unsplash.com/photo-1510557880182-3d4d3cba35f6?q=80&w=1200&auto=format&fit=crop' },
       { id:'ip16pro', nombre:'iPhone 16 Pro', precioOriginal:1199, descuento:.5, vendidos:4187,
-        opciones:{ almacenamiento:['128 GB','256 GB','512 GB','1 TB'], color:['Titán Natural','Negro','Azul'] },
+        opciones:{ almacenamiento:['128GB','256GB','512GB','1TB'], color:['黑色','白色','金色','蓝色'] },
         img:'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1200&auto=format&fit=crop' },
       { id:'ip16promax', nombre:'iPhone 16 Pro Max', precioOriginal:1299, descuento:.5, vendidos:6760,
-        opciones:{ almacenamiento:['256 GB','512 GB','1 TB'], color:['Titán Natural','Negro','Dorado'] },
+        opciones:{ almacenamiento:['256GB','512GB','1TB'], color:['黑色','白色','金色','蓝色','红色'] },
         img:'https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1200&auto=format&fit=crop' }
     ];
 
+    // WhatsApp 打开
     function openWhatsApp(producto){
-      const text = encodeURIComponent(`Hola, quiero la oferta a mitad de precio${producto?(' del '+producto):''}. ¿Me ayudas?`);
+      const text = encodeURIComponent(`你好，我想咨询${producto?(' '+producto):''}半价活动～`);
       window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${text}`,'_blank');
     }
     document.getElementById('btnTopWA').onclick = () => openWhatsApp('');
     document.getElementById('btnBottomWA').onclick = () => openWhatsApp('');
 
+    // ========== 倒计时（本地持久化） ==========
     function getDeadline(){
       const key='pdd_iphone_deadline'; const saved=localStorage.getItem(key); const now=Date.now();
       let deadline=saved?parseInt(saved,10):0;
@@ -144,20 +186,15 @@
       const remain = Math.max(0, getDeadline()-Date.now());
       const totalSec = Math.floor(remain/1000);
       const d=Math.floor(totalSec/86400), h=Math.floor(totalSec%86400/3600), m=Math.floor(totalSec%3600/60), s=totalSec%60;
-      if(totalSec<=0){
-        document.getElementById('ended').classList.remove('hidden');
-        document.getElementById('timeBox').classList.add('hidden');
-        document.getElementById('bottomTimer').textContent='Finalizada';
-      }else{
-        document.getElementById('d').textContent=two(d);
-        document.getElementById('h').textContent=two(h);
-        document.getElementById('m').textContent=two(m);
-        document.getElementById('s').textContent=two(s);
-        document.getElementById('bottomTimer').textContent=`Termina en ${two(h)}h ${two(m)}m ${two(s)}s`;
-      }
+      document.getElementById('d').textContent=two(d);
+      document.getElementById('h').textContent=two(h);
+      document.getElementById('m').textContent=two(m);
+      document.getElementById('s').textContent=two(s);
+      document.getElementById('bottomTimer').textContent=`剩余 ${two(h)}:${two(m)}:${two(s)}`;
     }
     setInterval(tick,1000); tick();
 
+    // ========== 商品渲染（含 颜色 & 存储） ==========
     const grid=document.getElementById('grid'); const seleccion={};
     function money(n){ return CURRENCY + Math.round(n); }
     function renderProductos(){
@@ -169,21 +206,27 @@
           <div class="content">
             <div class="pimg"><img src="${p.img}" alt="${p.nombre}"/></div>
             <div class="title">${p.nombre}</div>
-            <div class="price"><div class="new">${money(nuevo)}</div><div class="old">${money(p.precioOriginal)}</div><span class="off">-50%</span></div>
-            <div class="opt-label">Almacenamiento</div>
+            <div class="price"><div class="new">${money(nuevo)}</div><div class="old">${money(p.precioOriginal)}</div><span class="off">直降 -50%</span></div>
+
+            <div class="opt-label">存储</div>
             <div class="opt-row">
-              ${p.opciones.almacenamiento.map(opt=>`<button class="opt-btn" data-id="${p.id}" data-tipo="almacenamiento" data-valor="${opt}">${opt}</button>`).join('')}
+              ${p.opciones.almacenamiento.map(opt=>`<button class="opt-btn" data-id="${p.id}" data-tipo="storage" data-valor="${opt}">${opt}</button>`).join('')}
             </div>
-            <div class="opt-label">Color</div>
+
+            <div class="opt-label">颜色</div>
             <div class="opt-row">
               ${p.opciones.color.map(opt=>`<button class="opt-btn" data-id="${p.id}" data-tipo="color" data-valor="${opt}">${opt}</button>`).join('')}
             </div>
-            <div class="meta"><span>${p.vendidos.toLocaleString()} vendidos</span><span>Stock rápido</span></div>
+
+            <div class="meta"><span>${p.vendidos.toLocaleString()} 人已购</span><span>现货速发</span></div>
             <div class="bar"><div class="fill" style="width:${prog}%"></div></div>
-            <div style="margin-top:12px"><button class="btn-red" data-contact="${p.nombre}">Contactar servicio</button></div>
+            <div style="margin-top:12px">
+              <button class="btn-red" data-contact="${p.nombre}">咨询并下单</button>
+            </div>
           </div>
         </article>`;
       }).join('');
+
       grid.querySelectorAll('.opt-btn').forEach(btn=>{
         btn.addEventListener('click',e=>{
           const b=e.currentTarget, id=b.dataset.id, tipo=b.dataset.tipo, valor=b.dataset.valor;
@@ -192,61 +235,69 @@
           if(seleccion[id][tipo]) grid.querySelector(`.opt-btn[data-id="${id}"][data-tipo="${tipo}"][data-valor="${valor}"]`).classList.add('active');
         });
       });
-      grid.querySelectorAll('[data-contact]').forEach(btn=>btn.addEventListener('click',e=>openWhatsApp(e.currentTarget.dataset.contact)));
+      grid.querySelectorAll('[data-contact]').forEach(btn=>btn.addEventListener('click',e=>{
+        const id = productos.find(pp=>pp.nombre===e.currentTarget.dataset.contact)?.id;
+        const s = seleccion[id]||{};
+        const picked = `${e.currentTarget.dataset.contact}${s.storage?(' '+s.storage):''}${s.color?(' '+s.color):''}`;
+        openWhatsApp(picked);
+      }));
     }
     renderProductos();
 
-    // Modal Centro de pedidos
+    // ========== 个人中心查询 /api/orders ==========
     const modal=document.getElementById('modalMask'), resultBox=document.getElementById('resultBox'), inputQ=document.getElementById('q');
     document.getElementById('btnCentro').onclick=()=>{ modal.style.display='flex'; inputQ.focus(); };
     document.getElementById('btnCerrar').onclick=()=>{ modal.style.display='none'; resultBox.innerHTML=''; inputQ.value=''; };
 
-    // --- API calls ---
-    async function fetchOrdersAPI({ orderId, phone }) {
-      const qs = new URLSearchParams();
-      if (orderId) qs.set('orderId', orderId);
-      if (phone)   qs.set('phone', phone);
-      const r = await fetch(`/api/orders?${qs.toString()}`, { cache: 'no-store' });
-      return r.ok ? r.json() : [];
+    async function fetchOrders(){
+      try{
+        const q=inputQ.value.trim();
+        if(!q) return [];
+        let url='/api/orders?'; 
+        if(q.startsWith('+')) url+='phone='+encodeURIComponent(q);
+        else url+='orderId='+encodeURIComponent(q);
+        const res = await fetch(url,{cache:'no-store'});
+        if(!res.ok) return [];
+        return await res.json();
+      }catch(e){ return []; }
     }
-    async function fetchDHL(tracking) {
-      const r = await fetch(`/api/track?tracking=${encodeURIComponent(tracking)}`, { cache: 'no-store' });
-      return r.ok ? r.json() : null;
-    }
-
-    document.getElementById('btnBuscar').onclick = async () => {
-      const q = inputQ.value.trim();
-      resultBox.innerHTML = '<div>Buscando…</div>';
-      const isOrder = /^([A-Za-z]{3,}|PED)\d+/i.test(q);
-      const orders = await fetchOrdersAPI({ orderId: isOrder ? q : undefined, phone: isOrder ? undefined : q });
-
-      const blocks = await Promise.all(orders.map(async (o) => {
-        let trackHTML = '';
-        if ((o.carrier || '').toUpperCase() === 'DHL' && o.tracking) {
-          const dj = await fetchDHL(o.tracking);
-          const items = dj?.shipments?.[0]?.events || dj?.events || [];
-          const last = items[0];
-          trackHTML = last
-            ? `<div><b>Último evento:</b> ${last.description || last.status || ''} — ${last.timestamp || last.date || ''}</div>`
-            : `<div>No hay eventos disponibles aún.</div>`;
-        }
-        return `
-          <div class="order-card">
-            <div><b>Pedido:</b> ${o.orderId || '-'}</div>
-            <div><b>Cliente:</b> ${o.name || '-'}</div>
-            <div><b>Producto:</b> ${o.product || '-'}</div>
-            <div><b>Precio:</b> ${o.price || '-'}</div>
-            <div><b>Estado:</b> ${o.status || 'Procesando'}</div>
-            <div><b>Transportista:</b> ${o.carrier || '-'}</div>
-            <div><b>Núm. de seguimiento:</b> ${o.tracking || '-'}</div>
-            <div><b>Actualizado:</b> ${o.updatedAt || '-'}</div>
-            ${trackHTML}
-          </div>`;
-      }));
-
-      resultBox.innerHTML = blocks.length ? blocks.join('') :
-        '<div style="color:#c00">Sin resultados. Verifica tu ID / teléfono.</div>';
+    document.getElementById('btnBuscar').onclick=async ()=>{
+      resultBox.innerHTML='<div>查询中…</div>';
+      const found = await fetchOrders();
+      if(!found || found.length===0){ resultBox.innerHTML='<div style="color:#c00">未找到，请核对订单号/手机号。</div>'; return; }
+      resultBox.innerHTML = found.map(o=>`
+        <div class="order-card">
+          <div><b>订单号：</b> ${o.orderId || '-'}</div>
+          <div><b>客户：</b> ${o.name || '-'}</div>
+          <div><b>电话：</b> ${o.phone || '-'}</div>
+          <div><b>商品：</b> ${o.product || '-'} ${o.color?('('+o.color+')'):''} ×${o.qty||1}</div>
+          <div><b>价格：</b> ${o.price || '-'}</div>
+          <div><b>状态：</b> ${o.status || '处理中'}</div>
+          <div><b>物流：</b> ${o.carrier || '-'}</div>
+          <div><b>运单号：</b> ${o.tracking || '-'}</div>
+          <div><b>更新时间：</b> ${o.updatedAt || '-'}</div>
+        </div>
+      `).join('');
     };
+
+    // ========== 滚动字幕 /api/feed ==========
+    async function loadTicker(){
+      try{
+        const res = await fetch('/api/feed',{cache:'no-store'});
+        const { ok, items } = await res.json();
+        if(!ok || !items) return;
+        const lines = items.map(o=>{
+          const when = (o.updatedAt||'').slice(5,16).replace(' ',' ');
+          return `【${when}】${o.name} 购买 ${o.product}${o.color?('('+o.color+')'):''} ×${o.qty} ，价格 ${o.price||'—'} ，电话 ${o.phoneMasked}${o.carrier?('，物流 '+o.carrier):''}${o.trackingMasked?('（单号 '+o.trackingMasked+'）'):''}`;
+        });
+        const text = lines.join('　|　');
+        const el = document.getElementById('tickerText');
+        el.textContent = text || '即时成交播报…';
+        let off = 0;
+        setInterval(()=>{ off=(off+1)%50000; el.style.transform = `translateX(${-off}px)`; }, 30);
+      }catch(e){}
+    }
+    loadTicker();
   </script>
 </body>
 </html>

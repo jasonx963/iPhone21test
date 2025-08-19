@@ -243,9 +243,23 @@
     const grid = document.getElementById('grid');
     const seleccion = {};
     function money(n) { return CURRENCY + Math.round(n); }
+    function updatePrice(cardId, storage) {
+      const product = productos.find(p => p.id === cardId);
+      if (!product || !storage) return;
+      const priceOriginal = product.precioOriginal[storage];
+      const priceDiscounted = Math.round(priceOriginal * product.descuento);
+      const card = grid.querySelector(`.card[data-id="${cardId}"]`);
+      if (card) {
+        const priceNew = card.querySelector('.price .new');
+        const priceOld = card.querySelector('.price .old');
+        if (priceNew && priceOld) {
+          priceNew.textContent = money(priceDiscounted);
+          priceOld.textContent = money(priceOriginal);
+        }
+      }
+    }
     function renderProductos() {
       grid.innerHTML = productos.map(p => {
-        // 默认选择第一个存储容量作为初始价格
         const defaultStorage = p.opciones.almacenamiento[0];
         const nuevo = Math.round(p.precioOriginal[defaultStorage] * p.descuento);
         const prog = Math.min(100, (p.vendidos % 1000) / 10);
@@ -254,7 +268,7 @@
             <div class="content">
               <div class="pimg"><img src="${p.img}" alt="${p.nombre}"/></div>
               <div class="title">${p.nombre}</div>
-              <div class="price"><div class="new" data-price="${p.id}">${money(nuevo)}</div><div class="old">${money(p.precioOriginal[defaultStorage])}</div><span class="off">Descuento -50%</span></div>
+              <div class="price"><div class="new">${money(nuevo)}</div><div class="old">${money(p.precioOriginal[defaultStorage])}</div><span class="off">Descuento -50%</span></div>
 
               <div class="opt-label">Almacenamiento</div>
               <div class="opt-row">
@@ -283,14 +297,9 @@
           grid.querySelectorAll(`.opt-btn[data-id="${id}"][data-tipo="${tipo}"]`).forEach(x => x.classList.remove('active'));
           if (seleccion[id][tipo]) grid.querySelector(`.opt-btn[data-id="${id}"][data-tipo="${tipo}"][data-valor="${valor}"]`).classList.add('active');
 
-          // 更新价格基于选中的存储容量
+          // 更新价格
           if (tipo === 'storage') {
-            const card = grid.querySelector(`.card[data-id="${id}"]`);
-            const priceNew = card.querySelector('.price .new');
-            const priceOld = card.querySelector('.price .old');
-            const selectedPrice = p.precioOriginal[valor];
-            priceNew.textContent = money(Math.round(selectedPrice * p.descuento));
-            priceOld.textContent = money(selectedPrice);
+            updatePrice(id, valor);
           }
         });
       });

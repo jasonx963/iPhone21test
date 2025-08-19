@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin – Pedidos & Logística</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;margin:20px}
+    h1{margin:0 0 10px}
+    .bar{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+    input,select{padding:8px;border:1px solid #ddd;border-radius:8px}
+    button{padding:8px 12px;border:0;border-radius:8px;cursor:pointer}
+    .btn{background:#2563eb;color:#fff}.btn.gray{background:#eee;color:#333}
+    table{width:100%;border-collapse:collapse;margin-top:12px}
+    th,td{border:1px solid #eee;padding:8px;text-align:left}
+    th{background:#fafafa}
+    .row-actions{display:flex;gap:6px}
+  </style>
+</head>
+<body>
+  <h1>Admin – Pedidos & Logística</h1>
+  <div style="color:#444;margin-bottom:10px">
+    录入或更新订单后点击“保存”，数据会写入后端（Vercel KV）。前端查询接口：<code>/api/orders</code>。
+  </div>
+
+  <div class="bar">
+    <input id="orderId" placeholder="ID de pedido (ej: PED123456)" />
+    <input id="name" placeholder="Nombre del cliente" />
+    <input id="phone" placeholder="Teléfono (ej: +52 1 55...)" />
+    <input id="product" placeholder="Producto (ej: iPhone 16 Pro)" />
+    <input id="price" placeholder="Precio (MX$)" />
+    <select id="status">
+      <option>Procesando</option>
+      <option>Pagado</option>
+      <option>Enviado</option>
+      <option>Entregado</option>
+    </select>
+    <input id="carrier" placeholder="Transportista (ej: DHL, Estafeta)" />
+    <input id="tracking" placeholder="Núm. de seguimiento" />
+    <button class="btn" id="saveBtn">Guardar</button>
+  </div>
+
+  <div class="bar">
+    <input id="query" placeholder="Buscar por ID / Teléfono" />
+    <button class="btn gray" id="searchBtn">Buscar</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Pedido</th><th>Cliente</th><th>Teléfono</th><th>Producto</th><th>Precio</th><th>Estado</th><th>Transportista</th><th>Tracking</th><th>Actualizado</th><th>操作</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+
+  <script>
+    const ADMIN_TOKEN = localStorage.getItem('ADMIN_TOKEN') || prompt('Admin Token（后台口令）');
+    localStorage.setItem('ADMIN_TOKEN', ADMIN_TOKEN);
+
+    async function upsertOrder(order) {
+      const url = '/api/orders' + (order._update ? ('?orderId=' + encodeURIComponent(order.orderId)) : '');
+      const method = order._update ? 'PUT' : 'POST';
+      const r = await fetch(url, {
+        method,
+        headers: { 'Content-Type':'application/json', 'X-Admin-Token': ADMIN_TOKEN },
+        body: JSON.stringify(order)
+      });
+      const d = await r.json();
+      if(!r.ok){ alert('保存失败: ' + (d.error || r.status)); return; }
+      alert('已保存: ' + d.orderId);
+      searchNow();
+    }
+
+    function getForm(){
+      return {
+        orderId: document.getElementById('orderId').value.trim(),
+        name:    document.getElementById('name').value.trim(),
+        phone:   document.getElementById('phone').value.trim(),
+        product: document.getElementById('product').value.trim(),
+        price:   document.getElementById('price').value.trim(),
+        status:  document.getElementById('status').value,
+        carrier: document.getElementById('carrier').value.trim(),
+        tracking:document.getElementById('tracking').value.trim()
+      };
+    }
+
+    document.getElementById('saveBtn').onclick = async () => {
+      const o = getForm();
+      if(!o.orderId){ alert('orderId 必填'); return; }
+      // 判定是新增还是更新
+      const existing = await fetch('/api/orders?orderId=' + encodeURIComponent(o.orderId)).then(r=>r.json());
+      if(existing.length){ o._update = true; }
+      upsertOrder(o);
+    };
+
+    async function searchNow(){
+      const q = document.getElementById('query').value.trim();
+      let url = '/api/orders?';
+      if(q){
+        if(/^([A-Za-z]{3,}|PED)\d+/i.test(q)) url += 'orderId=' + encodeURIComponent(q);
+        else url += 'phone=' + encodeURIComponent(q);
+      } else {
+        // 无查询参数时不显示全部，避免扫描KV；可按需扩展
+        document.getElementById('tbody').innerHTML = '';
+        return;
+      }
+      const rows = await fetch(url).then(r=>r.json());
+      const tbody = document.getElementById('tbody');
+      tbody.innerHTML = rows.map((o,i)=>`
+        <tr>
+          <td>${o.orderId||''}</td>
+          <td>${o.name||''}</td>
+          <td>${o.phone||''}</td>
+          <td>${o.product||''}</td>
+          <td>${o.price||''}</td>
+          <td>${o.status||''}</td>
+          <td>${o.carrier||''}</td>
+          <td>${o.tracking||''}</td>
+          <td>${o.updatedAt||''}</td>
+          <td class="row-actions">
+            <button onclick="fillForm(${i})">编辑</button>
+          </td>
+        </tr>
+      `).join('');
+      window._lastRows = rows;
+    }
+    document.getElementById('searchBtn').onclick = searchNow;
+
+    window.fillForm = (i)=>{
+      const o = (window._lastRows||[])[i]; if(!o) return;
+      document.getElementById('orderId').value = o.orderId||'';
+      document.getElementById('name').value    = o.name||'';
+      document.getElementById('phone').value   = o.phone||'';
+      document.getElementById('product').value = o.product||'';
+      document.getElementById('price').value   = o.price||'';
+      document.getElementById('status').value  = o.status||'Procesando';
+      document.getElementById('carrier').value = o.carrier||'';
+      document.getElementById('tracking').value= o.tracking||'';
+    };
+  </script>
+</body>
+</html>

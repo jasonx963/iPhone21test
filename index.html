@@ -180,17 +180,35 @@
     const FINISH_IN_MINUTES = 1440;           // Minutos para el conteo regresivo (24 hours)
     const CURRENCY = 'MX$';
 
-    // 商品配置（已包含 颜色与存储） —— 已替换为你提供的 Apple 官方图片链接，并更新价格
+    // 商品配置（已包含 颜色与存储） —— 更新为不同内存的价格
     const productos = [
-      { id:'ip16', nombre:'iPhone 16', precioOriginal:19999, descuento:0.5, vendidos:5321,
-        opciones:{ almacenamiento:['128GB','256GB','512GB'], color:['Negro','Blanco','Azul'] },
-        img:'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-finish-select-202409-6-1inch_GEO_US?wid=5120&hei=2880&fmt=webp&qlt=90&.v=UXp1U3VDY3IyR1hNdHZwdFdOLzg1V0tFK1lhSCtYSGRqMUdhR284NTN4OUh1cU00ZU5qL3V3QjQwYlZSSzMvRzBoUVhuTWlrY2hIK090ZGZZbk9HeEJWb1BiTjRORlc1Y1lKU3JWempySkpOUEtmTk1GaTROYStqcXRWaTBQT3hmbW94YnYxc1YvNXZ4emJGL0IxNFp3&traceId=1' },
-      { id:'ip16pro', nombre:'iPhone 16 Pro', precioOriginal:25999, descuento:0.5, vendidos:4187,
-        opciones:{ almacenamiento:['128GB','256GB','512GB','1TB'], color:['Negro','Blanco','Dorado','Azul'] },
-        img:'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-pro-finish-select-202409-6-3inch-whitetitanium?wid=5120&hei=2880&fmt=webp&qlt=90&.v=eUdsd0dIb3VUOXdtWkY0VFUwVE8vbEdkZHNlSjBQRklnaFB2d3I5MW94NkppVHhtRktGckFBd2ZPSmpuTHdJcWlCQmV2WTA2cncybDF2YzFnKzI0S2prMCtUNWwzYWR0UVU3TWVsbEdUeXV0dnhVVHVwTllva0RRUVdaK0xFNFAzVmtFSHJkUURvdVZmQktGTnNPd1Z3&traceId=1' },
-      { id:'ip16promax', nombre:'iPhone 16 Pro Max', precioOriginal:30999, descuento:0.5, vendidos:6760,
-        opciones:{ almacenamiento:['256GB','512GB','1TB'], color:['Negro','Blanco','Dorado','Azul','Rojo'] },
-        img:'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-pro-finish-select-202409-6-9inch-naturaltitanium?wid=5120&hei=2880&fmt=webp&qlt=90&.v=eUdsd0dIb3VUOXdtWkY0VFUwVE8vbEdkZHNlSjBQRklnaFB2d3I5MW94NkkwYXJHRXdBd0xZTDNUS0M2eUNlY0pOZTBYalh5Vk90cEc1K2wwRzFGejRMeXJHUnUva2huMjl4akFHOXNwVjFOU1YvbEhQdCtlZmMrckc2K3RtQzR6UkM0eXdTUkFqNnFqYk5ZcGUzV2tB&traceId=1' }
+      { 
+        id: 'ip16', 
+        nombre: 'iPhone 16', 
+        precioOriginal: { '128GB': 19999, '256GB': 22499, '512GB': 27499 }, 
+        descuento: 0.5, 
+        vendidos: 5321,
+        opciones: { almacenamiento: ['128GB', '256GB', '512GB'], color: ['Negro', 'Blanco', 'Azul'] },
+        img: 'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-finish-select-202409-6-1inch_GEO_US?wid=5120&hei=2880&fmt=webp&qlt=90&.v=UXp1U3VDY3IyR1hNdHZwdFdOLzg1V0tFK1lhSCtYSGRqMUdhR284NTN4OUh1cU00ZU5qL3V3QjQwYlZSSzMvRzBoUVhuTWlrY2hIK090ZGZZbk9HeEJWb1BiTjRORlc1Y1lKU3JWempySkpOUEtmTk1GaTROYStqcXRWaTBQT3hmbW94YnYxc1YvNXZ4emJGL0IxNFp3&traceId=1' 
+      },
+      { 
+        id: 'ip16pro', 
+        nombre: 'iPhone 16 Pro', 
+        precioOriginal: { '128GB': 25999, '256GB': 28499, '512GB': 33499, '1TB': 38499 }, 
+        descuento: 0.5, 
+        vendidos: 4187,
+        opciones: { almacenamiento: ['128GB', '256GB', '512GB', '1TB'], color: ['Negro', 'Blanco', 'Dorado', 'Azul'] },
+        img: 'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-pro-finish-select-202409-6-3inch-whitetitanium?wid=5120&hei=2880&fmt=webp&qlt=90&.v=eUdsd0dIb3VUOXdtWkY0VFUwVE8vbEdkZHNlSjBQRklnaFB2d3I5MW94NkppVHhtRktGckFBd2ZPSmpuTHdJcWlCQmV2WTA2cncybDF2YzFnKzI0S2prMCtUNWwzYWR0UVU3TWVsbEdUeXV0dnhVVHVwTllva0RRUVdaK0xFNFAzVmtFSHJkUURvdVZmQktGTnNPd1Z3&traceId=1' 
+      },
+      { 
+        id: 'ip16promax', 
+        nombre: 'iPhone 16 Pro Max', 
+        precioOriginal: { '256GB': 30999, '512GB': 35999, '1TB': 40999 }, 
+        descuento: 0.5, 
+        vendidos: 6760,
+        opciones: { almacenamiento: ['256GB', '512GB', '1TB'], color: ['Negro', 'Blanco', 'Dorado', 'Azul', 'Rojo'] },
+        img: 'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-pro-finish-select-202409-6-9inch-naturaltitanium?wid=5120&hei=2880&fmt=webp&qlt=90&.v=eUdsd0dIb3VUOXdtWkY0VFUwVE8vbEdkZHNlSjBQRklnaFB2d3I5MW94NkkwYXJHRXdBd0xZTDNUS0M2eUNlY0pOZTBYalh5Vk90cEc1K2wwRzFGejRMeXJHUnUva2huMjl4akFHOXNwVjFOU1YvbEhQdCtlZmMrckc2K3RtQzR6UkM0eXdTUkFqNnFqYk5ZcGUzV2tB&traceId=1' 
+      }
     ];
 
     // WhatsApp 打开
@@ -222,82 +240,97 @@
     setInterval(tick,1000); tick();
 
     // ========== 商品渲染（含 颜色 & 存储） ==========
-    const grid=document.getElementById('grid'); const seleccion={};
-    function money(n){ return CURRENCY + Math.round(n); }
-    function renderProductos(){
-      grid.innerHTML = productos.map(p=>{
-        const nuevo=Math.round(p.precioOriginal*p.descuento);
-        const prog=Math.min(100,(p.vendidos%1000)/10);
+    const grid = document.getElementById('grid');
+    const seleccion = {};
+    function money(n) { return CURRENCY + Math.round(n); }
+    function renderProductos() {
+      grid.innerHTML = productos.map(p => {
+        // 默认选择第一个存储容量作为初始价格
+        const defaultStorage = p.opciones.almacenamiento[0];
+        const nuevo = Math.round(p.precioOriginal[defaultStorage] * p.descuento);
+        const prog = Math.min(100, (p.vendidos % 1000) / 10);
         return `
-        <article class="card">
-          <div class="content">
-            <div class="pimg"><img src="${p.img}" alt="${p.nombre}"/></div>
-            <div class="title">${p.nombre}</div>
-            <div class="price"><div class="new">${money(nuevo)}</div><div class="old">${money(p.precioOriginal)}</div><span class="off">Descuento -50%</span></div>
+          <article class="card" data-id="${p.id}">
+            <div class="content">
+              <div class="pimg"><img src="${p.img}" alt="${p.nombre}"/></div>
+              <div class="title">${p.nombre}</div>
+              <div class="price"><div class="new" data-price="${p.id}">${money(nuevo)}</div><div class="old">${money(p.precioOriginal[defaultStorage])}</div><span class="off">Descuento -50%</span></div>
 
-            <div class="opt-label">Almacenamiento</div>
-            <div class="opt-row">
-              ${p.opciones.almacenamiento.map(opt=>`<button class="opt-btn" data-id="${p.id}" data-tipo="storage" data-valor="${opt}">${opt}</button>`).join('')}
-            </div>
+              <div class="opt-label">Almacenamiento</div>
+              <div class="opt-row">
+                ${p.opciones.almacenamiento.map(opt => `<button class="opt-btn" data-id="${p.id}" data-tipo="storage" data-valor="${opt}">${opt}</button>`).join('')}
+              </div>
 
-            <div class="opt-label">Color</div>
-            <div class="opt-row">
-              ${p.opciones.color.map(opt=>`<button class="opt-btn" data-id="${p.id}" data-tipo="color" data-valor="${opt}">${opt}</button>`).join('')}
-            </div>
+              <div class="opt-label">Color</div>
+              <div class="opt-row">
+                ${p.opciones.color.map(opt => `<button class="opt-btn" data-id="${p.id}" data-tipo="color" data-valor="${opt}">${opt}</button>`).join('')}
+              </div>
 
-            <div class="meta"><span>${p.vendidos.toLocaleString()} personas compraron</span><span>Envío inmediato</span></div>
-            <div class="bar"><div class="fill" style="width:${prog}%"></div></div>
-            <div style="margin-top:12px">
-              <button class="btn-red" data-contact="${p.nombre}">Consultar y comprar</button>
+              <div class="meta"><span>${p.vendidos.toLocaleString()} personas compraron</span><span>Envío inmediato</span></div>
+              <div class="bar"><div class="fill" style="width:${prog}%"></div></div>
+              <div style="margin-top:12px">
+                <button class="btn-red" data-contact="${p.nombre}">Consultar y comprar</button>
+              </div>
             </div>
-          </div>
-        </article>`;
+          </article>`;
       }).join('');
 
-      grid.querySelectorAll('.opt-btn').forEach(btn=>{
-        btn.addEventListener('click',e=>{
-          const b=e.currentTarget, id=b.dataset.id, tipo=b.dataset.tipo, valor=b.dataset.valor;
-          seleccion[id]=seleccion[id]||{}; seleccion[id][tipo]=(seleccion[id][tipo]===valor)?null:valor;
-          grid.querySelectorAll(`.opt-btn[data-id="${id}"][data-tipo="${tipo}"]`).forEach(x=>x.classList.remove('active'));
-          if(seleccion[id][tipo]) grid.querySelector(`.opt-btn[data-id="${id}"][data-tipo="${tipo}"][data-valor="${valor}"]`).classList.add('active');
+      grid.querySelectorAll('.opt-btn').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const b = e.currentTarget, id = b.dataset.id, tipo = b.dataset.tipo, valor = b.dataset.valor;
+          seleccion[id] = seleccion[id] || {};
+          seleccion[id][tipo] = (seleccion[id][tipo] === valor) ? null : valor;
+          grid.querySelectorAll(`.opt-btn[data-id="${id}"][data-tipo="${tipo}"]`).forEach(x => x.classList.remove('active'));
+          if (seleccion[id][tipo]) grid.querySelector(`.opt-btn[data-id="${id}"][data-tipo="${tipo}"][data-valor="${valor}"]`).classList.add('active');
+
+          // 更新价格基于选中的存储容量
+          if (tipo === 'storage') {
+            const card = grid.querySelector(`.card[data-id="${id}"]`);
+            const priceNew = card.querySelector('.price .new');
+            const priceOld = card.querySelector('.price .old');
+            const selectedPrice = p.precioOriginal[valor];
+            priceNew.textContent = money(Math.round(selectedPrice * p.descuento));
+            priceOld.textContent = money(selectedPrice);
+          }
         });
       });
-      grid.querySelectorAll('[data-contact]').forEach(btn=>btn.addEventListener('click',e=>{
-        const id = productos.find(pp=>pp.nombre===e.currentTarget.dataset.contact)?.id;
-        const s = seleccion[id]||{};
-        const picked = `${e.currentTarget.dataset.contact}${s.storage?(' '+s.storage):''}${s.color?(' '+s.color):''}`;
+
+      grid.querySelectorAll('[data-contact]').forEach(btn => btn.addEventListener('click', e => {
+        const id = productos.find(pp => pp.nombre === e.currentTarget.dataset.contact)?.id;
+        const s = seleccion[id] || {};
+        const picked = `${e.currentTarget.dataset.contact}${s.storage ? (' ' + s.storage) : ''}${s.color ? (' ' + s.color) : ''}`;
         openWhatsApp(picked);
       }));
     }
     renderProductos();
 
     // ========== 个人中心查询 /api/orders ==========
-    const modal=document.getElementById('modalMask'), resultBox=document.getElementById('resultBox'), inputQ=document.getElementById('q');
-    document.getElementById('btnCentro').onclick=()=>{ modal.style.display='flex'; inputQ.focus(); };
-    document.getElementById('btnCerrar').onclick=()=>{ modal.style.display='none'; resultBox.innerHTML=''; inputQ.value=''; };
+    const modal = document.getElementById('modalMask'), resultBox = document.getElementById('resultBox'), inputQ = document.getElementById('q');
+    document.getElementById('btnCentro').onclick = () => { modal.style.display = 'flex'; inputQ.focus(); };
+    document.getElementById('btnCerrar').onclick = () => { modal.style.display = 'none'; resultBox.innerHTML = ''; inputQ.value = ''; };
 
-    async function fetchOrders(){
-      try{
-        const q=inputQ.value.trim();
-        if(!q) return [];
-        let url='/api/orders?'; 
-        if(q.startsWith('+')) url+='phone='+encodeURIComponent(q);
-        else url+='orderId='+encodeURIComponent(q);
-        const res = await fetch(url,{cache:'no-store'});
-        if(!res.ok) return [];
+    async function fetchOrders() {
+      try {
+        const q = inputQ.value.trim();
+        if (!q) return [];
+        let url = '/api/orders?';
+        if (q.startsWith('+')) url += 'phone=' + encodeURIComponent(q);
+        else url += 'orderId=' + encodeURIComponent(q);
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) return [];
         return await res.json();
-      }catch(e){ return []; }
+      } catch (e) { return []; }
     }
-    document.getElementById('btnBuscar').onclick=async ()=>{
-      resultBox.innerHTML='<div>Consultando…</div>';
+    document.getElementById('btnBuscar').onclick = async () => {
+      resultBox.innerHTML = '<div>Consultando…</div>';
       const found = await fetchOrders();
-      if(!found || found.length===0){ resultBox.innerHTML='<div style="color:#c00">No encontrado, verifica el número de pedido/teléfono.</div>'; return; }
-      resultBox.innerHTML = found.map(o=>`
+      if (!found || found.length === 0) { resultBox.innerHTML = '<div style="color:#c00">No encontrado, verifica el número de pedido/teléfono.</div>'; return; }
+      resultBox.innerHTML = found.map(o => `
         <div class="order-card">
           <div><b>Número de pedido:</b> ${o.orderId || '-'}</div>
           <div><b>Cliente:</b> ${o.name || '-'}</div>
           <div><b>Teléfono:</b> ${o.phone || '-'}</div>
-          <div><b>Producto:</b> ${o.product || '-'} ${o.color?('('+o.color+')'):''} ×${o.qty||1}</div>
+          <div><b>Producto:</b> ${o.product || '-'} ${o.color ? ('(' + o.color + ')') : ''} ×${o.qty || 1}</div>
           <div><b>Precio:</b> ${o.price || '-'}</div>
           <div><b>Estado:</b> ${o.status || 'En proceso'}</div>
           <div><b>Transportista:</b> ${o.carrier || '-'}</div>
@@ -308,21 +341,21 @@
     };
 
     // ========== 滚动字幕 /api/feed ==========
-    async function loadTicker(){
-      try{
-        const res = await fetch('/api/feed',{cache:'no-store'});
+    async function loadTicker() {
+      try {
+        const res = await fetch('/api/feed', { cache: 'no-store' });
         const { ok, items } = await res.json();
-        if(!ok || !items) return;
-        const lines = items.map(o=>{
-          const when = (o.updatedAt||'').slice(5,16).replace(' ',' ');
-          return `【${when}】${o.name} compró ${o.product}${o.color?('('+o.color+')'):''} ×${o.qty} , precio ${o.price||'—'} , teléfono ${o.phoneMasked}${o.carrier?(' , envío '+o.carrier):''}${o.trackingMasked?(' (número '+o.trackingMasked+')'):''}`;
+        if (!ok || !items) return;
+        const lines = items.map(o => {
+          const when = (o.updatedAt || '').slice(5, 16).replace(' ', ' ');
+          return `【${when}】${o.name} compró ${o.product}${o.color ? ('(' + o.color + ')') : ''} ×${o.qty} , precio ${o.price || '—'} , teléfono ${o.phoneMasked}${o.carrier ? (' , envío ' + o.carrier) : ''}${o.trackingMasked ? (' (número ' + o.trackingMasked + ')') : ''}`;
         });
         const text = lines.join('　|　');
         const el = document.getElementById('tickerText');
         el.textContent = text || 'Reporte de compras recientes…';
         let off = 0;
-        setInterval(()=>{ off=(off+1)%50000; el.style.transform = `translateX(${-off}px)`; }, 30);
-      }catch(e){}
+        setInterval(() => { off = (off + 1) % 50000; el.style.transform = `translateX(${-off}px)`; }, 30);
+      } catch (e) {}
     }
     loadTicker();
   </script>

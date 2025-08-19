@@ -85,6 +85,23 @@
       .pimg{aspect-ratio:auto;max-height:58vh}
     }
   </style>
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '800045609174711');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=800045609174711&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
 </head>
 <body>
   <header>
@@ -160,7 +177,7 @@
   <script>
     // ========== 配置 ==========
     const WHATSAPP_PHONE = '447599837790';  // Cambia a tu número de WhatsApp internacional
-    const FINISH_IN_MINUTES = 1440;           // Minutos para el conteo regresivo
+    const FINISH_IN_MINUTES = 1440;           // Minutos para el conteo regresivo (24 hours)
     const CURRENCY = 'MX$';
 
     // 商品配置（已包含 颜色与存储） —— 已替换为你提供的 Apple 官方图片链接
@@ -188,7 +205,7 @@
     function getDeadline(){
       const key='pdd_iphone_deadline'; const saved=localStorage.getItem(key); const now=Date.now();
       let deadline=saved?parseInt(saved,10):0;
-      if(!deadline || deadline<now){ deadline = now + FINISH_IN_MINUTES*60*1000; localStorage.setItem(key,String(deadline)); }
+      if(!deadline || deadline < now){ deadline = now + FINISH_IN_MINUTES*60*1000; localStorage.setItem(key,String(deadline)); }
       return deadline;
     }
     function two(n){ return String(n).padStart(2,'0'); }

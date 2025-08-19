@@ -27,7 +27,7 @@
   .logout{color:var(--muted);font-size:13px;cursor:pointer}
   .logout:hover{color:#111}
   .tip{margin-top:2px}
-  @media(max-width:900px){.col-3,.col-4,.col-6{grid-column:span 12}}
+  @media(max-width:900px){.col-3,.col-4,.col-6,.col-2{grid-column:span 12}}
 </style>
 </head>
 <body>
@@ -47,7 +47,7 @@
   <div class="card">
     <div class="row">
       <div class="col-4">
-        <input id="orderId" placeholder="订单号（新增可留空，系统自动生成）" />
+        <input id="orderId" placeholder="订单号（新增留空，系统生成）" />
       </div>
       <div class="col-4">
         <input id="name" placeholder="客户姓名" />
@@ -56,33 +56,67 @@
         <input id="phone" placeholder="手机号（例：+52 1 55...）" />
       </div>
 
+      <!-- 型号 + 存储 + 颜色 -->
       <div class="col-4">
-        <input id="product" placeholder="商品（例：iPhone 16 Pro）" />
+        <select id="model" title="机型">
+          <option value="iPhone 16">iPhone 16</option>
+          <option value="iPhone 16 Pro">iPhone 16 Pro</option>
+          <option value="iPhone 16 Pro Max">iPhone 16 Pro Max</option>
+        </select>
       </div>
       <div class="col-2">
+        <select id="storage" title="存储">
+          <option value="128GB">128GB</option>
+          <option value="256GB">256GB</option>
+          <option value="512GB">512GB</option>
+          <option value="1TB">1TB</option>
+        </select>
+      </div>
+      <div class="col-3">
+        <select id="color" title="颜色">
+          <option value="黑色">黑色</option>
+          <option value="白色">白色</option>
+          <option value="金色">金色</option>
+          <option value="蓝色">蓝色</option>
+          <option value="红色">红色</option>
+        </select>
+      </div>
+
+      <!-- 数量 -->
+      <div class="col-3">
+        <input id="qty" type="number" min="1" step="1" value="1" placeholder="数量" />
+      </div>
+
+      <div class="col-3">
         <input id="price" placeholder="价格（例：MX$ 999）" />
       </div>
       <div class="col-3">
         <select id="status">
-          <option value="已下单">已下单</option>
-          <option value="已支付">已支付</option>
-          <option value="待发货">待发货</option>
-          <option value="运输中">运输中</option>
-          <option value="已签收">已签收</option>
-          <option value="已取消">已取消</option>
-          <option value="售后中">售后中</option>
+          <option>已下单</option>
+          <option>已支付</option>
+          <option>待发货</option>
+          <option>运输中</option>
+          <option>已签收</option>
+          <option>已取消</option>
+          <option>售后中</option>
         </select>
       </div>
+      <!-- 物流公司 下拉（默认 DHL） -->
       <div class="col-3">
-        <input id="carrier" placeholder="物流（例：DHL / Estafeta）" />
+        <select id="carrier">
+          <option value="DHL" selected>DHL</option>
+          <option value="Estafeta">Estafeta</option>
+          <option value="FedEx">FedEx</option>
+        </select>
       </div>
 
       <div class="col-6">
         <input id="tracking" placeholder="物流单号（例：DHL 运单号）" />
       </div>
+
       <div class="col-6 toolbar">
         <button class="btn red" id="btnSave">保存</button>
-        <button class="btn gray" id="btnDelete">删除</button>
+        <!-- 不要保存旁删除按钮，避免误触 -->
         <button class="btn" id="btnList">查看全部</button>
       </div>
     </div>
@@ -92,7 +126,7 @@
   <div class="card">
     <div class="row">
       <div class="col-6">
-        <input id="q" placeholder="按订单号或手机号查询（例：PED123 / +52 1 55...）" />
+        <input id="q" placeholder="按订单号或手机号查询（例：ORD2025... / +52 1 55...）" />
       </div>
       <div class="col-6 toolbar">
         <button class="btn" id="btnSearch">查询</button>
@@ -109,6 +143,8 @@
           <th>客户</th>
           <th>电话</th>
           <th>商品</th>
+          <th>颜色</th>
+          <th>数量</th>
           <th>价格</th>
           <th>状态</th>
           <th>物流</th>
@@ -153,6 +189,8 @@
       <td>${o.name||'-'}</td>
       <td>${o.phone||'-'}</td>
       <td>${o.product||'-'}</td>
+      <td>${o.color||'-'}</td>
+      <td>${o.qty ?? 1}</td>
       <td>${o.price||'-'}</td>
       <td>${o.status||'-'}</td>
       <td>${o.carrier||'-'}</td>
@@ -164,17 +202,20 @@
       </td>
     </tr>`;
   }
-  function render(list){ $('tbody').innerHTML = (list||[]).map(rowHtml).join('') || '<tr><td colspan="10">暂无数据</td></tr>'; }
+  function render(list){ $('tbody').innerHTML = (list||[]).map(rowHtml).join('') || '<tr><td colspan="12">暂无数据</td></tr>'; }
   window.fill = (id) => { set('orderId', id); };
 
   // —— 保存（orderId 为空时，后端自动生成） ——
   async function save() {
     const t = await ensureToken();
+    const product = `${val('model')} ${val('storage')}`.trim();
     const payload = {
       orderId: val('orderId') || undefined, // 允许为空
       name: val('name'),
       phone: val('phone'),
-      product: val('product'),
+      product,
+      color: val('color'),
+      qty: Number(val('qty') || 1),
       price: val('price'),
       status: val('status'),
       carrier: val('carrier'),
@@ -187,7 +228,7 @@
     });
     const data = await res.json();
     if (!res.ok || !data.ok) { alert('保存失败：' + JSON.stringify(data)); return; }
-    if (data.orderId) set('orderId', data.orderId); // 回填系统生成的订单号
+    if (data.orderId) set('orderId', data.orderId); // 回填系统生成订单号
     alert('保存成功！订单号：' + (data.orderId || payload.orderId));
     await search(); // 刷新一遍
   }
@@ -229,7 +270,6 @@
   }
 
   $('btnSave').onclick = save;
-  $('btnDelete').onclick = () => doDelete();
   $('btnSearch').onclick = search;
   $('btnList').onclick = listAll;
 

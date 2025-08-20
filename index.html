@@ -8,11 +8,12 @@
   <style>
     :root{
       --red-600:#dc2626;--red-500:#ef4444;--red-400:#f87171;--yellow:#fde047;
-      --ink:#7f1d1d;--muted:#9b1c1c
+      --ink:#7f1d1d;--muted:#9b1c1c;
+      --whatsapp-green: #25D366; /* WhatsApp官方绿色 */
     }
     *{box-sizing:border-box}
     html,body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
-    body{background:linear-gradient(180deg,var(--red-600),var(--red-500) 50%,var(--red-400));color:#fff}
+    body{background:linear-gradient(180deg,var(--red-600),var(--red-500) 50%,var(--red-400));color:#fff; min-height: 100vh;}
     .container{max-width:1100px;margin:0 auto;padding:0 16px}
 
     header{position:sticky;top:0;z-index:50;backdrop-filter:blur(6px);background:rgba(220,38,38,.88);border-bottom:1px solid rgba(255,255,255,.25)}
@@ -68,7 +69,7 @@
     .stickybar-wrap{position:fixed;left:12px;right:12px;bottom:12px;z-index:60}
     .stickybar{background:#fff;color:var(--ink);border-radius:16px;box-shadow:0 18px 40px rgba(0,0,0,.28);padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
     .tag{background:var(--red-600);color:#fff;font-weight:900;padding:6px 10px;border-radius:999px;font-size:12px}
-    .small-btn{background:var(--red-600);color:#fff;font-weight:900;padding:10px 14px;border:0;border-radius:12px;cursor:pointer}
+    .small-btn{background:var(--whatsapp-green);color:#fff;font-weight:900;padding:10px 14px;border:0;border-radius:12px;cursor:pointer} /* 更改背景为绿色 */
 
     /* 个人中心 Modal */
     .modal-mask{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:70}
@@ -83,6 +84,28 @@
     /* 移动端：允许产品图高度自适应，避免小屏裁切 */
     @media (max-width:600px){
       .pimg{aspect-ratio:auto;max-height:58vh}
+    }
+
+    /* WhatsApp 图标样式 */
+    .whatsapp-icon {
+      position: fixed;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      width: 60px;
+      height: 60px;
+      background-color: var(--whatsapp-green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      z-index: 100;
+    }
+    .whatsapp-icon img {
+      width: 36px;
+      height: 36px;
     }
   </style>
   <!-- Meta Pixel Code -->
@@ -174,6 +197,11 @@
     </div>
   </div>
 
+  <!-- WhatsApp 图标 -->
+  <div class="whatsapp-icon" id="whatsappIcon">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
+  </div>
+
   <script>
     // ========== 配置 ==========
     const WHATSAPP_PHONE = 'https://lihi.vip/t4sPq';  // 修改为新的跳转链接
@@ -218,6 +246,7 @@
     }
     document.getElementById('btnTopWA').onclick = () => openWhatsApp('');
     document.getElementById('btnBottomWA').onclick = () => openWhatsApp('');
+    document.getElementById('whatsappIcon').onclick = () => openWhatsApp(''); // 添加 WhatsApp 图标点击事件
 
     // ========== 倒计时（本地持久化） ==========
     function getDeadline(){

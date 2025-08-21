@@ -56,7 +56,7 @@
     .off{background:rgba(220,38,38,.08);color:var(--red-600);padding:2px 8px;border-radius:999px;font-size:12px;font-weight:800}
 
     .opt-label{font-size:12px;font-weight:800;margin:8px 0 4px}
-    .opt-row{display:flex;flex-wrap:wrap;gap:8px}
+    .opt-row{display:flex:flex-wrap:wrap;gap:8px}
     .opt-btn{background:#fff;color:var(--ink);border:1px solid #fecaca;font-weight:700;font-size:13px;padding:6px 10px;border-radius:999px;cursor:pointer}
     .opt-btn.active{background:var(--red-600);color:#fff;border-color:var(--red-600)}
 
@@ -64,15 +64,15 @@
     .bar{width:100%;height:8px;background:#fee2e2;border-radius:999px;overflow:hidden}
     .fill{height:100%;background:var(--red-600);width:30%}
 
-    .btn-red{background:var(--red-600);color:#fff;font-weight:900;border:0;padding:12px 16px;border-radius:14px;cursor:pointer;width:100%}
+    .btn-red{background:var(--whatsapp-green);color:#fff;font-weight:900;border:0;padding:12px 16px;border-radius:14px;cursor:pointer;width:100%}
 
     .stickybar-wrap{position:fixed;left:12px;right:12px;bottom:12px;z-index:60}
     .stickybar{background:#fff;color:var(--ink);border-radius:16px;box-shadow:0 18px 40px rgba(0,0,0,.28);padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
     .tag{background:var(--red-600);color:#fff;font-weight:900;padding:6px 10px;border-radius:999px;font-size:12px}
-    .small-btn{background:var(--whatsapp-green);color:#fff;font-weight:900;padding:10px 14px;border:0;border-radius:12px;cursor:pointer} /* 更改背景为绿色 */
+    .small-btn{background:var(--whatsapp-green);color:#fff;font-weight:900;padding:10px 14px;border:0;border-radius:12px;cursor:pointer}
 
     /* 个人中心 Modal */
-    .modal-mask{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:70}
+    .modal-mask{position:fixed:inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:70}
     .modal{background:#fff;color:#111;border-radius:16px;max-width:520px;width:92%;padding:18px}
     .modal h3{margin:0 0 8px}
     .modal label{font-size:13px;font-weight:700}
@@ -106,6 +106,72 @@
     .whatsapp-icon img {
       width: 36px;
       height: 36px;
+    }
+
+    /* 燃烧的火焰动态标志 */
+    .flame {
+      position: fixed;
+      top: calc(50% + 70px); /* 调整位置到WhatsApp图标下方 */
+      right: 25px;
+      width: 50px;
+      height: 80px;
+      background: radial-gradient(circle, #ff4500 0%, #ff8c00 50%, #800000 100%);
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+      animation: burn 0.5s infinite alternate, flicker 0.3s infinite, sway 2s infinite ease-in-out;
+      z-index: 101; /* 提高z-index以确保显示 */
+      display: block; /* 确保火焰显示 */
+    }
+
+    @keyframes burn {
+      0% { background: radial-gradient(circle, #ff4500 0%, #ff8c00 50%, #800000 100%); }
+      100% { background: radial-gradient(circle, #ff8c00 0%, #ff4500 50%, #800000 100%); }
+    }
+
+    @keyframes flicker {
+      0% { opacity: 0.9; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes sway {
+      0% { transform: translateX(0) rotate(0deg); }
+      25% { transform: translateX(-5px) rotate(5deg); }
+      75% { transform: translateX(5px) rotate(-5deg); }
+      100% { transform: translateX(0) rotate(0deg); }
+    }
+
+    /* 倒计时样式 */
+    .countdown-label {
+      position: fixed;
+      top: calc(50% + 140px); /* “Cuenta atrás”在上方 */
+      right: 20px; /* 与WhatsApp图标对齐 */
+      color: var(--red-600); /* 红色 */
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      z-index: 99;
+      display: block;
+    }
+
+    .countdown-container {
+      position: fixed;
+      top: calc(50% + 180px); /* 位于“Cuenta atrás”正下方 */
+      right: 20px; /* 与WhatsApp图标对齐 */
+      display: flex;
+      justify-content: center; /* 居中对齐数字 */
+      align-items: center;
+      gap: 4px;
+      z-index: 99;
+    }
+    .countdown-digit {
+      background: rgba(0, 0, 0, 0.35);
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-weight: 900;
+      font-size: 18px;
+      min-width: 44px;
+      text-align: center;
+      line-height: 1;
+      color: var(--whatsapp-green);
     }
   </style>
   <!-- Meta Pixel Code -->
@@ -152,8 +218,8 @@
             <div style="font-weight:800">Tiempo restante de la oferta</div>
             <div class="timer-container">
               <span class="tchip" id="d">00</span><span class="colon">:</span>
-              <span class="tchip" id="h">00</span><span class="colon">:</span>
-              <span class="tchip" id="m">00</span><span class="colon">:</span>
+              <span class="tchip" id="h">00</span><span class="colon"></span>
+              <span class="tchip" id="m">00</span><span class="colon"></span>
               <span class="tchip" id="s">00</span>
             </div>
             <div style="font-size:12px;opacity:.95;font-weight:800">Miles de usuarios están comprando</div>
@@ -200,6 +266,15 @@
   <!-- WhatsApp 图标 -->
   <div class="whatsapp-icon" id="whatsappIcon">
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
+  </div>
+
+  <!-- 燃烧的火焰动态标志 */
+  <div class="flame" id="flame"></div>
+
+  <!-- 倒计时标签和倒计时 -->
+  <div class="countdown-label">Cuenta atrás</div>
+  <div class="countdown-container" id="countdown-container">
+    <span class="countdown-digit" id="seconds">30</span>
   </div>
 
   <script>
@@ -396,6 +471,22 @@
       } catch (e) {}
     }
     loadTicker();
+
+    // ========== 30秒倒计时（持续演示） ==========
+    let countdownTime = 30;
+    const countdownContainer = document.getElementById('countdown-container');
+
+    function updateCountdown() {
+      document.getElementById('seconds').textContent = countdownTime;
+      if (countdownTime <= 0) {
+        countdownTime = 30; // 重置为30秒
+      } else {
+        countdownTime--;
+      }
+      setTimeout(updateCountdown, 1000);
+    }
+    // 页面加载时启动倒计时
+    window.onload = updateCountdown;
   </script>
 </body>
 </html>

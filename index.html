@@ -316,7 +316,7 @@
 
     // WhatsApp 打开
     function openWhatsApp(producto){
-      const text = encodeURIComponent(`Hola, quiero información sobre la oferta${producto?(' de '+producto):''} a mitad de precio`);
+      const text = encodeURIComponent(`Hola, comuníquese con atención al cliente vía WhatsApp para reclamar su iPhone a mitad de precio${producto?(' de '+producto):''} a mitad de precio`);
       window.open(`${WHATSAPP_PHONE}?text=${text}`,'_blank');
     }
     document.getElementById('btnTopWA').onclick = () => openWhatsApp('');
